@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Inventory {
 
-    protected HashMap<String, Item> inventory = new HashMap<String, Item>();
+    protected HashMap<String, Item> inventory;
     protected int maxTotal = 0;
     protected int currentTotal = 0;
 
@@ -22,6 +22,7 @@ public class Inventory {
      */
     public Inventory(int value) {
         maxTotal = value;
+        clear();
     }
 
     public int getMaxTotal() {
@@ -183,5 +184,10 @@ public class Inventory {
 
     public int getTotalLeft() {
         return maxTotal - currentTotal;
+    }
+
+    public void clear()
+    {
+        inventory = new HashMap<String, Item>();
     }
 }

@@ -130,11 +130,20 @@ public class Bank {
         _round = value;
     }
 
+    //TODO need to look into these methods if they are being used.
     public double get_interest() {
         return _interest;
     }
 
-    public void set_interest(double _interest) {
-        this._interest = _interest;
+    public void setInterest(double value) {
+        _interest = value;
+    }
+
+    public void setSavings(double value) {
+        _savings = value;
+    }
+
+    public void setLoan(double value) {
+        _loan = value;
     }
 }

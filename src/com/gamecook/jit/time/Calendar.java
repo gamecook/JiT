@@ -52,8 +52,8 @@ public class Calendar {
      * @param value
      * @return
      */
-    public int setTotalDays(int value) {
-        return totalDays;
+    public void setTotalDays(int value) {
+        totalDays = value;
     }
 
     /**

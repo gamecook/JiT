@@ -70,4 +70,12 @@ public class CalendarTest{
         assertEquals(cal.getDays(), 5);
     }
 
+    @Test
+    public void testSetTotalDays()
+    {
+        Calendar cal = new Calendar(0);
+        cal.setTotalDays(100);
+        assertEquals(cal.getTotalDays(), 100);
+    }
+
 }
