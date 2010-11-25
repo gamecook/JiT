@@ -1,0 +1,10 @@
+Icon
+Thumbs.db
+.DS_Store
+*.iml
+
+bin/*
+gen/*
+.classpath
+.project
+.projecte
