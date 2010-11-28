@@ -192,4 +192,15 @@ public abstract class AbstractItem implements Item {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "{\"name\":\""+getName()+"\"," +
+                "\"minPrice\":" + minPrice+","+
+                "\"maxPrice\":" + maxPrice+","+
+                "\"price\":" + price+","+
+                "\"total\":" + total+","+
+                "\"description\":\"" + description+"\","+
+                "\"history\":["+priceHistoryToString(",")+"]}";
+    }
 }

@@ -184,4 +184,8 @@ public class InventoryTest {
     {
         assertEquals(inventory.getTotalLeft(), 85);
     }
+
+    //TODO test for getItemByID
+
+
 }

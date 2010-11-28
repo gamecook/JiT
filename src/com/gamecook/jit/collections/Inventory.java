@@ -190,4 +190,24 @@ public class Inventory {
     {
         inventory = new HashMap<String, Item>();
     }
+
+    public Object getItemByID(int i) {
+        return get(getInventoryAsArray()[i]);
+    }
+
+    @Override
+    public String toString() {
+
+        String output = "{\"inventory\":[";
+
+        int i;
+        int total = getTotalItems();
+
+        for (i = 0; i < total; i ++)
+        {
+            output += getItemByID(i).toString()+",";
+        }
+
+        return output.substring(0, output.length()-1)+"]}";
+    }
 }

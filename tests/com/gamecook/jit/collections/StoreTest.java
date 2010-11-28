@@ -49,4 +49,17 @@ public class StoreTest {
         assertTrue(itemA.getPrice() <= itemA.getMaxPrice() && itemA.getPrice() >= itemA.getMinPrice());
     }
 
+    @Test
+    public void testToString() throws Exception {
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            store.get("Item A").setPrice(i);
+            store.get("Item B").setPrice(i);
+            store.get("Item C").setPrice(i);
+        }
+
+        assertEquals(store.toString(), "{\"store\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0]},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0]},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0]}]}");
+    }
 }

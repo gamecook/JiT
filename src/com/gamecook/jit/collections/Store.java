@@ -3,6 +3,8 @@ package com.gamecook.jit.collections;
 import com.gamecook.jit.items.Item;
 
 import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Set;
 
 public class Store extends Inventory {
 
@@ -30,7 +32,8 @@ public class Store extends Inventory {
         }
     }
 
-    public Object getItemByID(int i) {
-        return get(getInventoryAsArray()[i]);
+    @Override
+    public String toString() {
+        return super.toString().replace("inventory", "store");
     }
 }
