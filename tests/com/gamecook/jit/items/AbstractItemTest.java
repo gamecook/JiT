@@ -126,4 +126,31 @@ public class AbstractItemTest extends AbstractItem {
             assertEquals(price, ((double)i * 10));
         }
     }
+
+    @Test
+    public void testHistoryToString()
+    {
+       int total = 5;
+        int i;
+
+        //Populate prices
+        for (i = 0; i < total; i++)
+        {
+            setPrice(i);
+        }
+
+        assertEquals(priceHistoryToString(","), "0.0,1.0,2.0,3.0,4.0");
+    }
+
+    @Test
+    public void testParseHistoryFromString()
+    {
+        priceHistory.clear();
+        String prices = "0.0, 1.0, 1.5, 2.1543";
+        parsePriceHistoryString(prices);
+        assertEquals(priceHistory.get(0), 0.0);
+        assertEquals(priceHistory.get(1), 1.0);
+        assertEquals(priceHistory.get(2), 1.5);
+        assertEquals(priceHistory.get(3), 2.1543);
+    }
 }

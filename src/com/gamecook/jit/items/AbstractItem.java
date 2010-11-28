@@ -83,6 +83,7 @@ public abstract class AbstractItem implements Item {
      */
     public void setPrice(double value) {
         price = value < 0 ? 0 : value;
+        //TODO need to add in logic to limit the max number of price history.
         priceHistory.add(price);
     }
 
@@ -162,5 +163,33 @@ public abstract class AbstractItem implements Item {
         return priceHistory;
     }
 
+    public String priceHistoryToString(String delimeter) {
+        if (delimeter == null)
+            delimeter = ",";
+        StringBuilder sb = new StringBuilder();
+        int total = priceHistory.size();
+        int i;
+        for (i = 0; i < total; i++) {
+            sb.append(Double.toString(priceHistory.get(i)));
+            if (i + 1 < total)
+                sb.append(delimeter);
+        }
 
+        return sb.toString();
+    }
+
+    public void parsePriceHistoryString(String history) {
+        String[] prices = history.split(",");
+        int total = prices.length;
+        int i;
+        double d;
+        for (i = 0; i < total; i++) {
+            try {
+                d = Double.valueOf(prices[i].trim()).doubleValue();
+                setPrice(d);
+            } catch (NumberFormatException nfe) {
+                System.out.println("NumberFormatException: " + nfe.getMessage());
+            }
+        }
+    }
 }
