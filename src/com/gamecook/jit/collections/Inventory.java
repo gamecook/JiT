@@ -79,7 +79,7 @@ public class Inventory {
             return;
 
         currentTotal += value;
-        if(currentTotal > maxTotal)
+        if(getCurrentTotal() > maxTotal)
             throw new Error("Current total cann't go above the Max Total.");
     }
 

@@ -62,4 +62,19 @@ public class StoreTest {
 
         assertEquals(store.toString(), "{\"store\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0]},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0]},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0]}]}");
     }
+
+    @Test
+    public void testRemoveItemIsNull()
+    {
+        Item tmpItem = new MockItem("FooBar");
+        store.add(tmpItem, 10);
+        store.removeFromInventory(tmpItem, 10);
+        assertNotNull(store.get("FooBar"));
+    }
+
+    @Test
+    public void testGetCurrentTotal()
+    {
+        assertEquals(15, store.getCurrentTotal());
+    }
 }
