@@ -1,5 +1,9 @@
 package com.gamecook.jit;
 
+import com.gamecook.jit.items.Item;
+
+import java.util.ArrayList;
+
 /**
  * User: Jesse Freeman
  * Date: 11/28/10
@@ -37,4 +41,9 @@ public interface GameConfig {
     int getTotalDays();
 
     void setTotalDays(int totalDays);
+
+    ArrayList<Item> getItems();
+
+    void setItems(ArrayList<Item> items);
+
 }
