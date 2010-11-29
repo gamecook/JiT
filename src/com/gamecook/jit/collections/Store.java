@@ -16,8 +16,8 @@ public class Store extends Inventory {
      * manages the inventory of each item and its
      * fluctuation in price.
      */
-    public Store() {
-        super(-1);
+    public Store(int value) {
+        super(value);
     }
 
     /**

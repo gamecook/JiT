@@ -52,20 +52,20 @@ public class AbstractGameTest {
         assertEquals(game.getLocations().getTotal(), 3);
     }
 
-    @Test
+    /*@Test
     public void testGetStore() throws Exception {
         assertNotNull(game.getStore());
         assertEquals(game.getStore().getTotalItems(), 0);
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void testSetStore() throws Exception {
         Store store =new Store();
         store.add(new MockItem("FooBar"), 10);
         store.add(new MockItem("FooBar2"), 5);
         game.setStore(store);
         assertEquals(game.getStore().getTotalItems(), 2);
-    }
+    }*/
 
     @Test
     public void testGetBank() throws Exception {
@@ -126,22 +126,12 @@ class MockGame extends AbstractGame
 {
 
     @Override
-    public void startGame(int days) {
-
-    }
-
-    @Override
-    public void endGame() {
-
-    }
-
-    @Override
-    public void nextTurn() {
+    public void startGame(GameConfig config) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void reset() {
+    public void nextTurn() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

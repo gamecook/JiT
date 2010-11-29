@@ -19,24 +19,14 @@ public abstract class AbstractGame {
 
     protected Inventory inventory;
     protected Locations locations;
-    protected Store store;
     protected Bank bank;
     protected Wallet wallet;
     protected Player player;
     protected Calendar calendar;
-    protected Boolean gameStarted = false;
 
-    public abstract void startGame(int days);
-
-    public abstract void endGame();
+    public abstract void startGame(GameConfig config);
 
     public abstract void nextTurn();
-
-    public abstract void reset();
-
-    public Boolean getGameStarted() {
-        return gameStarted;
-    }
 
     public Locations getLocations() {
         if (locations == null) locations = new Locations();
@@ -45,15 +35,6 @@ public abstract class AbstractGame {
 
     public void setLocations(Locations locations) {
         this.locations = locations;
-    }
-
-    public Store getStore() {
-        if (store == null) store = new Store();
-        return store;
-    }
-
-    public void setStore(Store store) {
-        this.store = store;
     }
 
     public Bank getBank() {
@@ -91,7 +72,6 @@ public abstract class AbstractGame {
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
     }
-
 
     public Inventory getInventory() {
         if (inventory == null) inventory = new Inventory(100);

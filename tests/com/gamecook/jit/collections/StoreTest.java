@@ -19,7 +19,7 @@ public class StoreTest {
 
     @Before
     public void setUp() throws Exception {
-        store = new Store();
+        store = new Store(-1);
 
         // Item A
         Item itemA = new MockItem("Item A");
