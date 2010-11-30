@@ -198,7 +198,7 @@ public class Inventory {
     @Override
     public String toString() {
 
-        String output = "{\"inventory\":[";
+        String output = "{\"inventory\":{\"maxTotal\":"+getMaxTotal()+",\"currentTotal\":"+getCurrentTotal()+",\"items\":[";
 
         int i;
         int total = getTotalItems();
@@ -208,6 +208,6 @@ public class Inventory {
             output += getItemByID(i).toString()+",";
         }
 
-        return output.substring(0, output.length()-1)+"]}";
+        return output.substring(0, output.length()-1)+"]}}";
     }
 }

@@ -46,4 +46,5 @@ public interface GameConfig {
 
     void setItems(ArrayList<Item> items);
 
+    int getMaxTotal();
 }
