@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class Locations {
-    protected int currentLocation;
+    protected int currentLocation = -1;
     protected int lastID;
     protected ArrayList<String> locations = new ArrayList<String>();
 
@@ -30,8 +30,7 @@ public class Locations {
      * @param id
      */
     public String gotoLocationByID(int id) {
-        if (currentLocation >= 0)
-            lastID = currentLocation;
+        lastID = currentLocation;
 
         currentLocation = id;
 
@@ -64,6 +63,11 @@ public class Locations {
      */
     public String getLastLocation() {
         return locations.get(lastID);
+    }
+
+    public int getLastLocationID()
+    {
+        return lastID;
     }
 
     public int getTotal() {

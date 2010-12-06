@@ -64,4 +64,25 @@ public class LocationsTest {
         {
             assertEquals(locations.getTotal(), 3);
         }
+
+    @Test
+    public void testLastLocationID()
+    {
+        locations.gotoLocationByID(2);
+        locations.gotoLocationByID(0);
+        assertEquals(locations.getLastLocationID(), 2);
+    }
+
+    @Test
+    public void testFistLocationChangeIDs()
+    {
+        locations.gotoLocationByID(2);
+        assertEquals(locations.getLastLocationID(), -1);
+    }
+
+    @Test
+    public void testFistLocationID()
+    {
+        assertEquals(locations.getCurrentLocationID(), -1);
+    }
 }
