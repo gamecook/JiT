@@ -191,7 +191,7 @@ public class Inventory {
         inventory = new HashMap<String, Item>();
     }
 
-    public Object getItemByID(int i) {
+    public Item getItemByID(int i) {
         return get(getInventoryAsArray()[i]);
     }
 

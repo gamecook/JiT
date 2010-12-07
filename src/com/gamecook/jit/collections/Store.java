@@ -9,7 +9,27 @@ import java.util.Set;
 
 public class Store extends Inventory {
 
+    public static final int BUY = 1;
+    public static final int SELL = 2;
+    protected int currentItemID = -1;
+    protected int mode = BUY;
 
+    public Item getCurrentItem() {
+        return getItemByID(currentItemID);
+    }
+
+    public void selectItemByID(int id)
+    {
+        currentItemID = id;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
 
     /**
      * The Store represents a collection of items
@@ -88,5 +108,38 @@ public class Store extends Inventory {
 
         if(getCurrentTotal() > maxTotal)
             throw new Error("Current total cann't go above the Max Total.");
+    }
+
+    public int getCurrentItemID() {
+        return currentItemID;
+    }
+
+    public double previewCurrentItemPrice(int total) {
+        //TODO should this throw an error?
+        if(currentItemID < 0)
+            return 0.0;
+
+        return getCurrentItem().getPrice() * total;
+    }
+
+    public String getCurrentItemName() {
+        return getCurrentItem().getName();
+    }
+
+    public int previewCurrentItemMaxBuy(double total) {
+        //TODO should this throw an error?
+        if(currentItemID < 0)
+            return 0;
+
+        return (int) Math.floor(total / getCurrentItem().getPrice());
+    }
+
+
+    public void buyCurrentItem(int total) {
+        add(getCurrentItem(), total);
+    }
+
+    public void sellCurrentItem(int total) {
+        removeFromInventory(getCurrentItem(), total);
     }
 }

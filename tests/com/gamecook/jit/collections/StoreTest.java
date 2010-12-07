@@ -77,4 +77,80 @@ public class StoreTest {
     {
         assertEquals(15, store.getCurrentTotal());
     }
+
+    @Test
+    public void testGetCurrentItem()
+    {
+        store.selectItemByID(2);
+        assertEquals("Item C", store.getCurrentItem().getName());
+    }
+
+    @Test
+    public void testGetCurrentItemID()
+    {
+        store.selectItemByID(1);
+        assertEquals(1, store.getCurrentItemID());
+    }
+
+    @Test
+    public void setMode()
+    {
+        store.setMode(Store.BUY);
+        assertEquals(1, store.getMode());
+    }
+
+    @Test
+    public void testGetCurrentItemName()
+    {
+        store.selectItemByID(2);
+        assertEquals("Item C", store.getCurrentItemName());
+    }
+
+    @Test
+    public void testPreviewCurrentItemPrice()
+    {
+        store.selectItemByID(0);
+        store.getCurrentItem().setPrice(5.0);
+        double tmpPrice = store.previewCurrentItemPrice(5);
+        assertEquals(25.0, tmpPrice);
+
+    }
+
+    @Test
+    public void testPreviewNoCurrentItemSelectedPrice()
+    {
+        double tmpPrice = store.previewCurrentItemPrice(5);
+        assertEquals(0.0, tmpPrice);
+    }
+
+    @Test
+    public void testPreviewCurrentItemMaxBuy()
+    {
+        store.selectItemByID(1);
+        store.getCurrentItem().setPrice(25);
+
+        assertEquals(4, store.previewCurrentItemMaxBuy(100));
+    }
+
+    @Test
+    public void testPreviewNoCurrentItemSelectedMaxBuy()
+    {
+        assertEquals(0, store.previewCurrentItemMaxBuy(100));
+    }
+
+    @Test
+    public void testBuyCurrentItem()
+    {
+        store.selectItemByID(0);
+        store.buyCurrentItem(5);
+        assertEquals(6, store.getCurrentItem().getTotal());
+    }
+
+    @Test
+    public void testSellCurrentItem()
+    {
+        store.selectItemByID(1);
+        store.sellCurrentItem(5);
+        assertEquals(5, store.getCurrentItem().getTotal());
+    }
 }
