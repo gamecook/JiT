@@ -14,9 +14,9 @@ public class Inventory {
 
     /**
      * Inventory is a basic collection class which allows
-     * you to add an item and specify the total amount of
+     * you to addCash an item and specify the total amount of
      * that item. Since this is a departure from the base
-     * class AbstractCollection, the default add and removed
+     * class AbstractCollection, the default addCash and removed
      * are not used. In their place is addToInventory and
      * removeFromInventory.
      */

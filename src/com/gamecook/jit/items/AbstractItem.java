@@ -83,7 +83,7 @@ public abstract class AbstractItem implements Item {
      */
     public void setPrice(double value) {
         price = value < 0 ? 0 : value;
-        //TODO need to add in logic to limit the max number of price history.
+        //TODO need to addCash in logic to limit the max number of price history.
         priceHistory.add(price);
     }
 

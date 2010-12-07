@@ -1,7 +1,6 @@
 package com.gamecook.jit;
 
 import com.gamecook.jit.collections.Locations;
-import com.gamecook.jit.collections.Store;
 import com.gamecook.jit.commerce.Bank;
 import com.gamecook.jit.commerce.Wallet;
 import com.gamecook.jit.items.AbstractItem;
@@ -61,8 +60,8 @@ public class AbstractGameTest {
     /*@Test
     public void testSetStore() throws Exception {
         Store store =new Store();
-        store.add(new MockItem("FooBar"), 10);
-        store.add(new MockItem("FooBar2"), 5);
+        store.addCash(new MockItem("FooBar"), 10);
+        store.addCash(new MockItem("FooBar2"), 5);
         game.setStore(store);
         assertEquals(game.getStore().getTotalItems(), 2);
     }*/
@@ -75,23 +74,23 @@ public class AbstractGameTest {
 
     @Test
     public void testSetBank() throws Exception {
-        Bank bank = new Bank(4.5);
+        Bank bank = new Bank(100, 4.5);
         game.setBank(bank);
         assertEquals(game.getBank().getInterest(), 4.5);
         
     }
 
     @Test
-    public void testGetWallet() throws Exception {
-        assertNotNull(game.getWallet());
-        assertEquals(game.getWallet().getTotal(), 0.0);
+    public void testGetCash() throws Exception {
+        assertNotNull(game.getBank());
+        assertEquals(game.getBank().getCash(), 0.0);
     }
 
     @Test
-    public void testSetWallet() throws Exception {
-        Wallet wallet = new Wallet(100);
-        game.setWallet(wallet);
-        assertEquals(game.getWallet().getTotal(), 100.0);
+    public void testSetCash() throws Exception {
+        Bank bank = game.getBank();
+        bank.setCash(100);
+        assertEquals(game.getBank().getCash(), 100.0);
     }
 
     @Test

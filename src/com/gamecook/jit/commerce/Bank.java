@@ -1,6 +1,6 @@
 package com.gamecook.jit.commerce;
 
-public class Bank {
+public class Bank extends Wallet{
 
     protected double _savings = 0;
     protected double _interest;
@@ -14,7 +14,8 @@ public class Bank {
      *
      * @param interest
      */
-    public Bank(double interest) {
+    public Bank(double cash, double interest) {
+        super(cash);
         _interest = interest;
     }
 

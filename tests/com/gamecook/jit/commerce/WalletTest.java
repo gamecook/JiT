@@ -17,14 +17,14 @@ public class WalletTest {
     public void testNewWallet()
     {
         Wallet wallet = new Wallet(100);
-        assertEquals(wallet.getTotal(), 100.0);
+        assertEquals(wallet.getCash(), 100.0);
     }
 
     @Test
     public void testSetMoneyInWallet()
     {
         Wallet wallet = new Wallet(100);
-        wallet.add(200);
-        assertEquals(wallet.getTotal(), 300.0);
+        wallet.addCash(200);
+        assertEquals(wallet.getCash(), 300.0);
     }
 }

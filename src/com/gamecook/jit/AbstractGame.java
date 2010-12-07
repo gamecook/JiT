@@ -20,7 +20,6 @@ public abstract class AbstractGame {
     protected Inventory inventory;
     protected Locations locations;
     protected Bank bank;
-    protected Wallet wallet;
     protected Player player;
     protected Calendar calendar;
 
@@ -38,21 +37,12 @@ public abstract class AbstractGame {
     }
 
     public Bank getBank() {
-        if (bank == null) bank = new Bank(0);
+        if (bank == null) bank = new Bank(0, 0);
         return bank;
     }
 
     public void setBank(Bank bank) {
         this.bank = bank;
-    }
-
-    public Wallet getWallet() {
-        if (wallet == null) wallet = new Wallet(0);
-        return wallet;
-    }
-
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
     }
 
     public Player getPlayer() {

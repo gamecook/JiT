@@ -15,7 +15,7 @@ public class BankTest extends Bank {
 
         public BankTest()
         {
-            super(0.1299);
+            super(100, 0.1299);
             takeOutLoan(2500);
             depositIntoSavings(30);
             
@@ -93,5 +93,18 @@ public class BankTest extends Bank {
         {
             depositIntoSavings(1000);
             assertEquals("test", getSavings(), 1030.0);
+        }
+
+        @Test
+        public void testGetMoney()
+        {
+            assertEquals(100.0, getCash());
+        }
+
+        @Test
+        public void testSetMoneyInWallet()
+        {
+            addCash(200);
+            assertEquals(getCash(), 300.0);
         }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jit" default="compile.module.jit">
+  <dirname property="module.jit.basedir" file="${ant.file.module_jit}"/>
+  
+  <property name="module.jdk.home.jit" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.jit" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.jit" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.jit" value="${compiler.args}"/>
+  
+  <property name="jit.output.dir" value="${module.jit.basedir}/../out/production/JiT"/>
+  <property name="jit.testoutput.dir" value="${module.jit.basedir}/../out/test/JiT"/>
+  
+  <path id="jit.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jit.module.production.classpath">
+    <path refid="${module.jdk.classpath.jit}"/>
+  </path>
+  
+  <path id="jit.runtime.production.module.classpath">
+    <pathelement location="${jit.output.dir}"/>
+  </path>
+  
+  <path id="jit.module.classpath">
+    <path refid="${module.jdk.classpath.jit}"/>
+    <pathelement location="${jit.output.dir}"/>
+  </path>
+  
+  <path id="jit.runtime.module.classpath">
+    <pathelement location="${jit.testoutput.dir}"/>
+    <pathelement location="${jit.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jit">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jit">
+    <patternset refid="excluded.from.module.jit"/>
+  </patternset>
+  
+  <path id="jit.module.sourcepath">
+    <dirset dir="${module.jit.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jit" depends="compile.module.jit.production,compile.module.jit.tests" description="Compile module JiT"/>
+  
+  <target name="compile.module.jit.production" depends="register.custom.compilers" description="Compile module JiT; production classes">
+    <mkdir dir="${jit.output.dir}"/>
+    <javac2 destdir="${jit.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jit}/javac">
+      <compilerarg line="${compiler.args.jit}"/>
+      <bootclasspath refid="jit.module.bootclasspath"/>
+      <classpath refid="jit.module.production.classpath"/>
+      <src refid="jit.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jit"/>
+    </javac2>
+    
+    <copy todir="${jit.output.dir}">
+      <fileset dir="${module.jit.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jit.tests" depends="register.custom.compilers,compile.module.jit.production" description="compile module JiT; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jit" description="cleanup module">
+    <delete dir="${jit.output.dir}"/>
+    <delete dir="${jit.testoutput.dir}"/>
+  </target>
+</project>
