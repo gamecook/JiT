@@ -1,5 +1,7 @@
 package com.gamecook.jit.util;
 
+import java.text.NumberFormat;
+
 /**
  * Created by IntelliJ IDEA.
  * User: jfreeman
@@ -11,45 +13,28 @@ public class MoneyToStringUtil {
 
     /**
      * @param value
-     * @param roundUp
+     * @param dropRemainder
      * @return
      */
-    public static String convertToString(Double value, Boolean roundUp) {
-
-        String[] split = Double.toString(value).split("\\.");
-
-        return cleanUpString(split, roundUp);
+    public static String convertToString(double value, Boolean dropRemainder)
+    {
+        /*if(dropRemainder)
+        {*/
+            return convertToString((int) value);
+        /*}
+        else
+        {
+            return "$"+NumberFormat.getInstance().format(value);
+        }*/
     }
 
     /**
      * @param value
-     * @param roundUp
      * @return
      */
-    public static String convertToString(int value, Boolean roundUp) {
-
-        String[] split = Integer.toString(value).split("\\.");
-
-        return cleanUpString(split, roundUp);
+    public static String convertToString(int value)
+    {
+        return "$"+NumberFormat.getInstance().format(value);
     }
 
-    /**
-     * @param split
-     * @param roundUp
-     * @return
-     */
-    private static String cleanUpString(String[] split, Boolean roundUp) {
-        String moneyString = "$" + split[0];
-        if (!roundUp) {
-            String remainder = split[1];
-            if (remainder.length() == 1) {
-                remainder.concat("0");
-            } else if (remainder.length() < 2) {
-                //TODO need to remove any "extra" values after the second number.
-            }
-            moneyString.concat("." + remainder);
-        }
-
-        return moneyString;
-    }
 }
