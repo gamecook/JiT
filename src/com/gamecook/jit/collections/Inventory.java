@@ -2,6 +2,7 @@ package com.gamecook.jit.collections;
 
 import com.gamecook.jit.items.Item;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -9,6 +10,7 @@ import java.util.HashMap;
 public class Inventory {
 
     protected HashMap<String, Item> inventory;
+    protected ArrayList<String> itemNames;
     protected int maxTotal = 0;
     protected int currentTotal = 0;
 
@@ -20,8 +22,11 @@ public class Inventory {
      * are not used. In their place is addToInventory and
      * removeFromInventory.
      */
-    public Inventory(int value) {
-        maxTotal = value;
+    public Inventory(int maxTotal) {
+        this.maxTotal = maxTotal;
+        inventory = new HashMap<String, Item>();
+        itemNames = new ArrayList<String>();
+
         clear();
     }
 
@@ -100,6 +105,7 @@ public class Inventory {
         }
         item.setTotal(amount);
         inventory.put(item.getName(), item);
+        itemNames.add(item.getName());
     }
 
     /**
@@ -115,9 +121,11 @@ public class Inventory {
             subtractFromTotal(((Item)inventory.get(name)).getTotal());
 
             inventory.remove(name);
+            itemNames.remove(name);
             return true;
         } else {
             return false;
+
         }
 
     }
@@ -188,7 +196,8 @@ public class Inventory {
 
     public void clear()
     {
-        inventory = new HashMap<String, Item>();
+        inventory.clear();
+        itemNames.clear();
     }
 
     public Item getItemByID(int i) {
@@ -209,5 +218,10 @@ public class Inventory {
         }
 
         return output.substring(0, output.length()-1)+"]}}";
+    }
+
+    public ArrayList<String> getItemNames()
+    {
+        return itemNames;
     }
 }

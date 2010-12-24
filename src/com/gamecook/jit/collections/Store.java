@@ -2,10 +2,7 @@ package com.gamecook.jit.collections;
 
 import com.gamecook.jit.items.Item;
 
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class Store extends Inventory {
 
@@ -13,9 +10,12 @@ public class Store extends Inventory {
     public static final int SELL = 2;
     protected int currentItemID = -1;
     protected int mode = BUY;
+    protected int maxCurrentInventory = 0;
+    protected ArrayList<Item> currentInventory;
+    private ArrayList<Item> userInventory;
 
     public Item getCurrentItem() {
-        return getItemByID(currentItemID);
+        return mode == BUY ? currentInventory.get(currentItemID) : userInventory.get(currentItemID) ;
     }
 
     public void selectItemByID(int id)
@@ -37,8 +37,10 @@ public class Store extends Inventory {
      * manages the inventory of each item and its
      * fluctuation in price.
      */
-    public Store(int value) {
-        super(value);
+    public Store(int maxTotal) {
+        super(maxTotal);
+        currentInventory = new ArrayList<Item>();
+        userInventory = new ArrayList<Item>();
     }
 
     /**
@@ -51,6 +53,7 @@ public class Store extends Inventory {
         for (Item item : items) {
             item.generateNewPrice();
         }
+        updateInventory();
     }
 
     @Override
@@ -137,9 +140,66 @@ public class Store extends Inventory {
 
     public void buyCurrentItem(int total) {
         add(getCurrentItem(), total);
+        refreshUserInventory();
     }
 
     public void sellCurrentItem(int total) {
         removeFromInventory(getCurrentItem(), total);
+        refreshUserInventory();
+    }
+
+    public ArrayList<Item> getCurrentInventory()
+    {
+        return currentInventory;
+
+    }
+
+    public int getMaxCurrentInventory()
+    {
+        return maxCurrentInventory;
+    }
+
+    public void setMaxCurrentInventory(int maxCurrentInventory)
+    {
+        this.maxCurrentInventory = maxCurrentInventory;
+    }
+
+    /**
+     * Goes through the items and creates a list of active items the store is currently selling.
+     */
+    public void updateInventory()
+    {
+        currentInventory.clear();
+        Collections.shuffle(itemNames);
+        Collections.shuffle(itemNames);
+
+        List<String> list = itemNames.subList(0, maxCurrentInventory);
+
+        Collections.sort(list);
+
+        int i;
+        for (i = 0; i < maxCurrentInventory; i++)
+        {
+            currentInventory.add(get(list.get(i)));
+        }
+    }
+
+    public ArrayList<Item> getUserInventory()
+    {
+        return userInventory;
+    }
+
+    public void refreshUserInventory()
+    {
+        userInventory.clear();
+        int i = 0;
+        int total = inventory.size();
+        Item item;
+        for (i = 0; i < total; i ++)
+        {
+            item = getItemByID(i);
+            if(item.getTotal() > 0)
+                userInventory.add(item);
+        }
     }
 }

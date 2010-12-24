@@ -7,6 +7,8 @@ import com.gamecook.jit.items.MockItem;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static junit.framework.Assert.*;
 import static junit.framework.Assert.assertEquals;
 
@@ -187,5 +189,25 @@ public class InventoryTest {
 
     //TODO test for getItemByID
 
+    @Test
+    public void testInventoryNames()
+    {
+        ArrayList<String> names = inventory.getItemNames();
+
+        assertEquals(names.get(0), "Item A");
+        assertEquals(names.get(1), "Item B");
+        assertEquals(names.get(2), "Item C");
+
+    }
+
+    @Test
+    public void testRemoveInventoryName()
+    {
+        inventory.remove("Item A");
+
+        ArrayList<String> names = inventory.getItemNames();
+
+        assertEquals(names.indexOf("Item A"), -1);
+    }
 
 }
