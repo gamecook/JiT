@@ -11,9 +11,6 @@ public class Store extends Inventory {
     protected int currentItemID = -1;
     protected int mode = BUY;
     protected int maxCurrentInventory = 0;
-    //protected ArrayList<Item> currentInventory;
-    //private ArrayList<Item> userInventory;
-
     private ArrayList<Item> activeInventory;
     private List<String> activeInventoryNameList;
 
@@ -23,7 +20,7 @@ public class Store extends Inventory {
     }
 
     public Item getCurrentItem() {
-        return getItemByID(currentItemID) ;
+        return activeInventory.get(currentItemID);
     }
 
     public void selectItemByID(int id)
@@ -78,11 +75,13 @@ public class Store extends Inventory {
      * the change in price.
      */
     public void refresh() {
-        Collection<Item> items = inventory.values();
-        for (Item item : items) {
+
+        generateRandomInventoryList();
+
+        for (Item item : activeInventory) {
             item.generateNewPrice();
         }
-        generateRandomInventoryList();
+
     }
 
     @Override
@@ -177,12 +176,6 @@ public class Store extends Inventory {
         refreshActiveInventory();
     }
 
-    /*public ArrayList<Item> getCurrentInventory()
-    {
-        return currentInventory;
-
-    }*/
-
     public int getMaxCurrentInventory()
     {
         return maxCurrentInventory;
@@ -231,24 +224,5 @@ public class Store extends Inventory {
 
         }
     }
-
-    /*public ArrayList<Item> getUserInventory()
-    {
-        return userInventory;
-    }
-
-    public void refreshUserInventory()
-    {
-        userInventory.clear();
-        int i = 0;
-        int total = inventory.size();
-        Item item;
-        for (i = 0; i < total; i ++)
-        {
-            item = getItemByID(i);
-            if(item.getTotal() > 0)
-                userInventory.add(item);
-        }
-    }*/
 
 }
