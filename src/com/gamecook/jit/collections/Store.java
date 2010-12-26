@@ -11,11 +11,19 @@ public class Store extends Inventory {
     protected int currentItemID = -1;
     protected int mode = BUY;
     protected int maxCurrentInventory = 0;
-    protected ArrayList<Item> currentInventory;
-    private ArrayList<Item> userInventory;
+    //protected ArrayList<Item> currentInventory;
+    //private ArrayList<Item> userInventory;
+
+    private ArrayList<Item> activeInventory;
+    private List<String> activeInventoryNameList;
+
+    public ArrayList<Item> getActiveInventory()
+    {
+        return activeInventory;
+    }
 
     public Item getCurrentItem() {
-        return mode == BUY ? currentInventory.get(currentItemID) : userInventory.get(currentItemID) ;
+        return getItemByID(currentItemID) ;
     }
 
     public void selectItemByID(int id)
@@ -29,6 +37,27 @@ public class Store extends Inventory {
 
     public void setMode(int mode) {
         this.mode = mode;
+        refreshActiveInventory();
+    }
+
+    @Override
+    public void add(Item item, int amount)
+    {
+        super.add(item, amount);
+
+        if(item.isActive())
+            activeInventoryNameList.add(item.getName());
+    }
+
+    @Override
+    public Boolean remove(String name)
+    {
+        if(activeInventoryNameList.indexOf(name) != 1)
+        {
+            activeInventoryNameList.remove(name);
+        }
+        return super.remove(name);
+
     }
 
     /**
@@ -39,8 +68,8 @@ public class Store extends Inventory {
      */
     public Store(int maxTotal) {
         super(maxTotal);
-        currentInventory = new ArrayList<Item>();
-        userInventory = new ArrayList<Item>();
+        activeInventory = new ArrayList<Item>();
+        activeInventoryNameList = new ArrayList<String>();
     }
 
     /**
@@ -53,7 +82,7 @@ public class Store extends Inventory {
         for (Item item : items) {
             item.generateNewPrice();
         }
-        updateInventory();
+        generateRandomInventoryList();
     }
 
     @Override
@@ -140,19 +169,19 @@ public class Store extends Inventory {
 
     public void buyCurrentItem(int total) {
         add(getCurrentItem(), total);
-        refreshUserInventory();
+        refreshActiveInventory();
     }
 
     public void sellCurrentItem(int total) {
         removeFromInventory(getCurrentItem(), total);
-        refreshUserInventory();
+        refreshActiveInventory();
     }
 
-    public ArrayList<Item> getCurrentInventory()
+    /*public ArrayList<Item> getCurrentInventory()
     {
         return currentInventory;
 
-    }
+    }*/
 
     public int getMaxCurrentInventory()
     {
@@ -167,24 +196,43 @@ public class Store extends Inventory {
     /**
      * Goes through the items and creates a list of active items the store is currently selling.
      */
-    public void updateInventory()
+    public void generateRandomInventoryList()
     {
-        currentInventory.clear();
-        Collections.shuffle(itemNames);
         Collections.shuffle(itemNames);
 
-        List<String> list = itemNames.subList(0, maxCurrentInventory);
+        activeInventoryNameList = itemNames.subList(0, maxCurrentInventory);
 
-        Collections.sort(list);
+        refreshActiveInventory();
+    }
 
+    public void refreshActiveInventory()
+    {
+
+        activeInventory.clear();
+        Collections.sort(activeInventoryNameList);
         int i;
-        for (i = 0; i < maxCurrentInventory; i++)
+        int total = getTotalItems();
+        Item item;
+        for(i = 0; i < total; i++)
         {
-            currentInventory.add(get(list.get(i)));
+            item = inventory.get(itemNames.get(i));
+            Boolean isActive = (activeInventoryNameList.indexOf(item.getName()) != -1) ? true : false;
+            item.setActive(isActive);
+
+            if(mode == SELL && item.getTotal() > 0)
+            {
+                activeInventory.add(item);
+            }
+            else if(mode == BUY && isActive)
+            {
+                if(item.isActive())
+                    activeInventory.add(item);
+            }
+
         }
     }
 
-    public ArrayList<Item> getUserInventory()
+    /*public ArrayList<Item> getUserInventory()
     {
         return userInventory;
     }
@@ -201,5 +249,6 @@ public class Store extends Inventory {
             if(item.getTotal() > 0)
                 userInventory.add(item);
         }
-    }
+    }*/
+
 }

@@ -49,4 +49,5 @@ public interface GameConfig {
     int getMaxTotal();
 
     int getMaxCurrentInventory();
+
 }

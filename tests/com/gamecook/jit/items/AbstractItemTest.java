@@ -166,6 +166,6 @@ public class AbstractItemTest extends AbstractItem {
             setPrice(i * 10);
         }
 
-        assertEquals(toString(), "{\"name\":\"AbstractItemTest\",\"minPrice\":0.0,\"maxPrice\":0.0,\"price\":40.0,\"total\":0,\"description\":\"\",\"history\":[0.0,10.0,20.0,30.0,40.0]}");
+        assertEquals(toString(), "{\"name\":\"AbstractItemTest\",\"minPrice\":0.0,\"maxPrice\":0.0,\"price\":40.0,\"total\":0,\"description\":\"\",\"history\":[0.0,10.0,20.0,30.0,40.0],\"active\":"+active+"}");
     }
 }

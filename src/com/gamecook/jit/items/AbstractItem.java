@@ -18,6 +18,17 @@ public abstract class AbstractItem implements Item {
     protected String name = "undefined";
     protected String description = "";
     protected int total;
+    protected boolean active;
+
+    public boolean isActive()
+    {
+        return active;
+    }
+
+    public void setActive(boolean active)
+    {
+        this.active = active;
+    }
 
     protected ArrayList<Double> priceHistory;
 
@@ -201,6 +212,8 @@ public abstract class AbstractItem implements Item {
                 "\"price\":" + price+","+
                 "\"total\":" + total+","+
                 "\"description\":\"" + description+"\","+
-                "\"history\":["+priceHistoryToString(",")+"]}";
+                "\"history\":["+priceHistoryToString(",")+"],"+
+                "\"active\":"+ active +""+
+                "}";
     }
 }

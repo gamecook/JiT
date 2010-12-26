@@ -33,4 +33,7 @@ public interface Item {
 
     void setTotal(int value);
 
+    boolean isActive();
+
+    void setActive(boolean visible);
 }
