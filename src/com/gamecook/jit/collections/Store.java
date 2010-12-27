@@ -211,19 +211,10 @@ public class Store extends Inventory {
         for(i = 0; i < total; i++)
         {
             item = inventory.get(itemNames.get(i));
-            Boolean isActive = (activeInventoryNameList.indexOf(item.getName()) != -1) ? true : false;
+            Boolean isActive = (activeInventoryNameList.indexOf(item.getName()) != -1);
             item.setActive(isActive);
-
-            if(mode == SELL && item.getTotal() > 0)
-            {
+            if(isActive)
                 activeInventory.add(item);
-            }
-            else if(mode == BUY && isActive)
-            {
-                if(item.isActive())
-                    activeInventory.add(item);
-            }
-
         }
     }
 

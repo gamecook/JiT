@@ -14,14 +14,8 @@ public class MoneyToStringUtilTest {
     @Test
     public void testConvertDoubleToStringWithoutRemainder()
     {
-        assertEquals("$2,222", MoneyToStringUtil.convertToString(2222.00, true));
+        assertEquals("$2,222", MoneyToStringUtil.convertToString(2222.00));
     }
-
-   /* @Test
-    public void testConvertDoubleToStringWithRemainder()
-    {
-        assertEquals("$2,222.00", MoneyToStringUtil.convertToString(2222.00, false));
-    }*/
 
     @Test
     public void testConvertIntToStringWithRemainder()

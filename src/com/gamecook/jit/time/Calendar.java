@@ -62,7 +62,7 @@ public class Calendar {
      * @return
      */
     public Boolean hasNextDay() {
-        return days < 1 ? false : true;
+        return days >= 1;
     }
 
     /**

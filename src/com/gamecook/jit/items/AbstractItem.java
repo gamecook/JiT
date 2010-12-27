@@ -174,16 +174,16 @@ public abstract class AbstractItem implements Item {
         return priceHistory;
     }
 
-    public String priceHistoryToString(String delimeter) {
-        if (delimeter == null)
-            delimeter = ",";
+    public String priceHistoryToString(String delimiter) {
+        if (delimiter == null)
+            delimiter = ",";
         StringBuilder sb = new StringBuilder();
         int total = priceHistory.size();
         int i;
         for (i = 0; i < total; i++) {
             sb.append(Double.toString(priceHistory.get(i)));
             if (i + 1 < total)
-                sb.append(delimeter);
+                sb.append(delimiter);
         }
 
         return sb.toString();

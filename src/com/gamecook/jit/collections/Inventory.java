@@ -118,7 +118,7 @@ public class Inventory {
         if (inventory.containsKey(name)) {
 
             // Remove item's total from inventory total before removing item
-            subtractFromTotal(((Item)inventory.get(name)).getTotal());
+            subtractFromTotal(inventory.get(name).getTotal());
 
             inventory.remove(name);
             itemNames.remove(name);

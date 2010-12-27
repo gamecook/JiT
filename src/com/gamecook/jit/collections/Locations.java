@@ -38,7 +38,7 @@ public class Locations {
     }
 
     /**
-     * Returns the current loctaion.
+     * Returns the current location.
      *
      * @return
      */
