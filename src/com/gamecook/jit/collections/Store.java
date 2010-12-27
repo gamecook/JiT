@@ -42,7 +42,7 @@ public class Store extends Inventory {
     {
         super.add(item, amount);
 
-        if(item.isActive())
+        if(item.isActive() && activeInventoryNameList.indexOf(item.getName()) == -1)
             activeInventoryNameList.add(item.getName());
     }
 
@@ -76,11 +76,13 @@ public class Store extends Inventory {
      */
     public void refresh() {
 
-        generateRandomInventoryList();
+        Collection<Item> items = inventory.values();
 
-        for (Item item : activeInventory) {
+        for (Item item : items) {
             item.generateNewPrice();
         }
+
+        generateRandomInventoryList();
 
     }
 
