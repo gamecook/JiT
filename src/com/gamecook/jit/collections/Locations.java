@@ -9,7 +9,7 @@ public class Locations {
     protected ArrayList<String> locations = new ArrayList<String>();
 
     /**
-     * The map represent a collection of locations.
+     * The map represent a collection of collections.
      * It tracks the current and last location visited.
      */
     public Locations() {

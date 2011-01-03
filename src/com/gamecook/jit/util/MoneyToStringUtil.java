@@ -13,10 +13,9 @@ public class MoneyToStringUtil {
 
     /**
      * @param value
-     * @param dropRemainder
      * @return
      */
-    public static String convertToString(double value, Boolean dropRemainder)
+    public static String convertToString(double value)
     {
         /*if(dropRemainder)
         {*/
