@@ -24,7 +24,7 @@ public class BankTest extends Bank {
         @Test
         public void testCalculateInterest()
         {
-            assertEquals(calculateInterest(_interest, 12, _loan, 3), 81.0);
+            assertEquals(calculateInterest(interest, 12, loan, 3), 81.0);
         }
 
         @Test

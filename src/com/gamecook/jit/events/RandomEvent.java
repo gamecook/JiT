@@ -1,4 +1,4 @@
-package com.gamecook.jit.items;
+package com.gamecook.jit.events;
 
 /**
  * Created by IntelliJ IDEA.
@@ -7,12 +7,12 @@ package com.gamecook.jit.items;
  * Time: 3:43 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Event
+public class RandomEvent
 {
     private int id;
     private String description;
 
-    public Event(int id, String description)
+    public RandomEvent(int id, String description)
     {
         this.id = id;
         this.description = description;

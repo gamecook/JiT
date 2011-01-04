@@ -2,10 +2,15 @@ package com.gamecook.jit.commerce;
 
 public class Bank extends Wallet{
 
-    protected double _savings = 0;
-    protected double _interest;
-    protected double _loan = 0;
-    private Boolean _round = true;
+    public static final int DEPOSIT = 0;
+    public static final int WITHDRAW = 1;
+    public static final int REPAY_LOAN = 2;
+    public static final int GET_LOAN = 3;
+
+    protected double savings = 0;
+    protected double interest;
+    protected double loan = 0;
+    private Boolean round = true;
 
     /**
      * The bank manges a single loan and savings value.
@@ -16,7 +21,7 @@ public class Bank extends Wallet{
      */
     public Bank(double cash, double interest) {
         super(cash);
-        _interest = interest;
+        this.interest = interest;
     }
 
     /**
@@ -25,7 +30,7 @@ public class Bank extends Wallet{
      * @return
      */
     public double getSavings() {
-        return _savings;
+        return savings;
     }
 
     /**
@@ -34,7 +39,7 @@ public class Bank extends Wallet{
      * @return
      */
     public double getLoan() {
-        return _loan;
+        return loan;
     }
 
     /**
@@ -43,7 +48,7 @@ public class Bank extends Wallet{
      * @return
      */
     public double getInterest() {
-        return _interest;
+        return interest;
     }
 
 
@@ -54,9 +59,9 @@ public class Bank extends Wallet{
      * @param totalDays
      */
     public void nextDay(double currentDay, double totalDays) {
-        if (_loan != 0) {
-            double interest = calculateInterest(_interest, totalDays, _loan, currentDay);
-            _loan += interest;
+        if (loan != 0) {
+            double interest = calculateInterest(this.interest, totalDays, loan, currentDay);
+            loan += interest;
         }
     }
 
@@ -67,13 +72,13 @@ public class Bank extends Wallet{
      * @return
      */
     public double payOffLoan(double value) {
-        _loan -= value;
+        loan -= value;
 
         double remainder = 0;
 
-        if (_loan < 0) {
-            remainder = _loan * -1;
-            _loan = 0;
+        if (loan < 0) {
+            remainder = loan * -1;
+            loan = 0;
         }
 
         return remainder;
@@ -87,11 +92,11 @@ public class Bank extends Wallet{
      * @return
      */
     public double withdrawFromSavings(double value) {
-        if (value > _savings) {
-            value = _savings;
-            _savings = 0;
+        if (value > savings) {
+            value = savings;
+            savings = 0;
         } else {
-            _savings -= value;
+            savings -= value;
         }
 
         return value;
@@ -103,7 +108,8 @@ public class Bank extends Wallet{
      * @param value
      */
     public void takeOutLoan(double value) {
-        _loan += value;
+        loan += value;
+        addCash(value);
     }
 
     /**
@@ -112,14 +118,14 @@ public class Bank extends Wallet{
      * @param value
      */
     public void depositIntoSavings(double value) {
-        _savings += value;
+        savings += value;
     }
 
 
     protected double calculateInterest(double interest, double totalTime, double balance, double timeElapsed) {
         double value = ((interest / totalTime) * balance) * timeElapsed;
 
-        return _round ? Math.round(value) : value;
+        return round ? Math.round(value) : value;
     }
 
     /**
@@ -128,23 +134,38 @@ public class Bank extends Wallet{
      * @param value
      */
     public void setRoundInterestCalculation(Boolean value) {
-        _round = value;
-    }
-
-    //TODO need to look into these methods if they are being used.
-    public double get_interest() {
-        return _interest;
+        round = value;
     }
 
     public void setInterest(double value) {
-        _interest = value;
+        interest = value;
     }
 
     public void setSavings(double value) {
-        _savings = value;
+        savings = value;
     }
 
     public void setLoan(double value) {
-        _loan = value;
+        loan = value;
     }
+
+    // Bank Helper Methods
+    public void deposit(double value)
+    {
+        subtractCash(value);
+        depositIntoSavings(value);
+    }
+
+    public void withdraw(double value)
+    {
+        addCash(value);
+        withdrawFromSavings(value);
+    }
+
+    public void replayLoan(double value)
+    {
+        subtractCash(value);
+        payOffLoan(value);
+    }
+
 }

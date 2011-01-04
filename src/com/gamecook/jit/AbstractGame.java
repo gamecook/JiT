@@ -2,9 +2,8 @@ package com.gamecook.jit;
 
 import com.gamecook.jit.collections.Inventory;
 import com.gamecook.jit.collections.Locations;
-import com.gamecook.jit.collections.Store;
 import com.gamecook.jit.commerce.Bank;
-import com.gamecook.jit.commerce.Wallet;
+import com.gamecook.jit.config.Config;
 import com.gamecook.jit.player.Player;
 import com.gamecook.jit.time.Calendar;
 
@@ -22,8 +21,24 @@ public abstract class AbstractGame {
     protected Bank bank;
     protected Player player;
     protected Calendar calendar;
+    protected String gameName;
+    protected int gameID;
 
-    public abstract void startGame(GameConfig config);
+    public String getGameName()
+    {
+        return gameName;
+    }
+
+    public int getGameID()
+    {
+        return gameID;
+    }
+
+    public void setCurrentLocation(String name) {
+        locations.gotoLocationByName(name);
+    }
+
+    public abstract void startGame(Config config);
 
     public abstract void nextTurn();
 
@@ -68,7 +83,16 @@ public abstract class AbstractGame {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    //TODO need to test
+    public int getScore() {
+        return (int) ((int) (bank.getCash() + bank.getSavings()) - bank.getLoan());
     }
+
+    //TODO need to test
+    public double getNetWorth() {
+        return bank.getSavings() + bank.getCash() + inventory.getCurrentTotal();
+    }
+
+    public abstract String toString();
+
 }

@@ -1,6 +1,6 @@
-package com.gamecook.jit;
+package com.gamecook.jit.config;
 
-import com.gamecook.jit.items.Event;
+import com.gamecook.jit.events.RandomEvent;
 import com.gamecook.jit.items.Item;
 
 import java.util.ArrayList;
@@ -10,8 +10,9 @@ import java.util.ArrayList;
  * Date: 11/28/10
  * Time: 9:59 PM
  */
-public interface GameConfig {
-    int getDifficultyLevel();
+public interface Config
+{
+    int getGameID();
 
     void setDifficultyLevel(int difficultyLevel);
 
@@ -51,9 +52,11 @@ public interface GameConfig {
 
     int getMaxCurrentInventory();
 
-    ArrayList<Event> getRandomEvents();
+    ArrayList<RandomEvent> getRandomEvents();
 
     int getRandomEventOdds();
 
     int getDefaultRandomEventID();
+
+    String getGameName();
 }

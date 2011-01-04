@@ -2,7 +2,7 @@ package com.gamecook.jit;
 
 import com.gamecook.jit.collections.Locations;
 import com.gamecook.jit.commerce.Bank;
-import com.gamecook.jit.commerce.Wallet;
+import com.gamecook.jit.config.Config;
 import com.gamecook.jit.items.AbstractItem;
 import com.gamecook.jit.items.Item;
 import com.gamecook.jit.player.Player;
@@ -125,13 +125,19 @@ class MockGame extends AbstractGame
 {
 
     @Override
-    public void startGame(GameConfig config) {
+    public void startGame(Config config) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void nextTurn() {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String toString()
+    {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
 
