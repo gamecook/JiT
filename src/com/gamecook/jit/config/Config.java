@@ -56,7 +56,7 @@ public interface Config
 
     int getRandomEventOdds();
 
-    int getDefaultRandomEventID();
+    //int getDefaultRandomEventID();
 
     String getGameName();
 }

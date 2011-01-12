@@ -197,33 +197,25 @@ public class Store extends Inventory {
 
         activeInventoryNameList = itemNames.subList(0, maxCurrentInventory);
 
+        Collections.sort(itemNames);
+
         refreshActiveInventory();
     }
 
     public void refreshActiveInventory()
     {
-
         activeInventory.clear();
-        Collections.sort(activeInventoryNameList);
+
         int i;
         int total = getTotalItems();
         Item item;
         for(i = 0; i < total; i++)
         {
             item = inventory.get(itemNames.get(i));
-            Boolean isActive = (activeInventoryNameList.indexOf(item.getName()) != -1) ? true : false;
-            item.setActive(isActive);
-
-            if(mode == SELL && item.getTotal() > 0)
-            {
+            Boolean isActive = (activeInventoryNameList.indexOf(item.getName()) != -1);
+            //item.setActive(isActive);
+            if(isActive)
                 activeInventory.add(item);
-            }
-            else if(mode == BUY && isActive)
-            {
-                if(item.isActive())
-                    activeInventory.add(item);
-            }
-
         }
     }
 
