@@ -1,7 +1,8 @@
 package com.gamecook.jit.player;
 
 
-public class Player {
+public class Player
+{
     private String _name;
 
     /**
@@ -9,7 +10,8 @@ public class Player {
      *
      * @param name
      */
-    public Player(String name) {
+    public Player(String name)
+    {
         _name = name;
     }
 
@@ -18,7 +20,8 @@ public class Player {
      *
      * @return
      */
-    public String getName() {
+    public String getName()
+    {
         return _name;
     }
 
@@ -27,7 +30,8 @@ public class Player {
      *
      * @param value
      */
-    public void setName(String value) {
+    public void setName(String value)
+    {
         _name = value;
     }
 }

@@ -4,7 +4,8 @@ import com.gamecook.jit.items.Item;
 
 import java.util.*;
 
-public class Store extends Inventory {
+public class Store extends Inventory
+{
 
     public static final int BUY = 1;
     public static final int SELL = 2;
@@ -19,7 +20,8 @@ public class Store extends Inventory {
         return activeInventory;
     }
 
-    public Item getCurrentItem() {
+    public Item getCurrentItem()
+    {
         return activeInventory.get(currentItemID);
     }
 
@@ -28,11 +30,13 @@ public class Store extends Inventory {
         currentItemID = id;
     }
 
-    public int getMode() {
+    public int getMode()
+    {
         return mode;
     }
 
-    public void setMode(int mode) {
+    public void setMode(int mode)
+    {
         this.mode = mode;
         refreshActiveInventory();
     }
@@ -42,14 +46,14 @@ public class Store extends Inventory {
     {
         super.add(item, amount);
 
-        if(item.isActive() && activeInventoryNameList.indexOf(item.getName()) == -1)
+        if (item.isActive() && activeInventoryNameList.indexOf(item.getName()) == -1)
             activeInventoryNameList.add(item.getName());
     }
 
     @Override
     public Boolean remove(String name)
     {
-        if(activeInventoryNameList.indexOf(name) != 1)
+        if (activeInventoryNameList.indexOf(name) != 1)
         {
             activeInventoryNameList.remove(name);
         }
@@ -63,7 +67,8 @@ public class Store extends Inventory {
      * manages the inventory of each item and its
      * fluctuation in price.
      */
-    public Store(int maxTotal) {
+    public Store(int maxTotal)
+    {
         super(maxTotal);
         activeInventory = new ArrayList<Item>();
         activeInventoryNameList = new ArrayList<String>();
@@ -74,11 +79,13 @@ public class Store extends Inventory {
      * items. It uses the range values to calculate
      * the change in price.
      */
-    public void refresh() {
+    public void refresh()
+    {
 
         Collection<Item> items = inventory.values();
 
-        for (Item item : items) {
+        for (Item item : items)
+        {
             item.generateNewPrice();
         }
 
@@ -87,7 +94,8 @@ public class Store extends Inventory {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return super.toString().replace("inventory", "store");
     }
 
@@ -100,10 +108,13 @@ public class Store extends Inventory {
      * @return
      */
     @Override
-    public int removeFromInventory(Item id, int amount) {
-        if (!hasItem(id.getName())) {
+    public int removeFromInventory(Item id, int amount)
+    {
+        if (!hasItem(id.getName()))
+        {
             return 0;
-        } else {
+        } else
+        {
             int remainder = getItemTotal(id.getName()) - amount;
             inventory.get(id.getName()).setTotal(remainder);
 
@@ -115,7 +126,8 @@ public class Store extends Inventory {
     }
 
     @Override
-    public int getCurrentTotal() {
+    public int getCurrentTotal()
+    {
 
         currentTotal = 0;
 
@@ -125,10 +137,10 @@ public class Store extends Inventory {
         Iterator itr = c.iterator();
 
         //iterate through HashMap values iterator
-        while(itr.hasNext())
+        while (itr.hasNext())
         {
-          Item item = (Item)itr.next();
-          currentTotal += item.getTotal();
+            Item item = (Item) itr.next();
+            currentTotal += item.getTotal();
         }
 
         return currentTotal;
@@ -136,44 +148,50 @@ public class Store extends Inventory {
 
     protected void addToTotal(int value)
     {
-        if(maxTotal == -1)
+        if (maxTotal == -1)
             return;
 
-        if(getCurrentTotal() > maxTotal)
+        if (getCurrentTotal() > maxTotal)
             throw new Error("Current total cann't go above the Max Total.");
     }
 
-    public int getCurrentItemID() {
+    public int getCurrentItemID()
+    {
         return currentItemID;
     }
 
-    public double previewCurrentItemPrice(int total) {
+    public double previewCurrentItemPrice(int total)
+    {
         //TODO should this throw an error?
-        if(currentItemID < 0)
+        if (currentItemID < 0)
             return 0.0;
 
         return getCurrentItem().getPrice() * total;
     }
 
-    public String getCurrentItemName() {
+    public String getCurrentItemName()
+    {
         return getCurrentItem().getName();
     }
 
-    public int previewCurrentItemMaxBuy(double total) {
+    public int previewCurrentItemMaxBuy(double total)
+    {
         //TODO should this throw an error?
-        if(currentItemID < 0)
+        if (currentItemID < 0)
             return 0;
 
         return (int) Math.floor(total / getCurrentItem().getPrice());
     }
 
 
-    public void buyCurrentItem(int total) {
+    public void buyCurrentItem(int total)
+    {
         add(getCurrentItem(), total);
         refreshActiveInventory();
     }
 
-    public void sellCurrentItem(int total) {
+    public void sellCurrentItem(int total)
+    {
         removeFromInventory(getCurrentItem(), total);
         refreshActiveInventory();
     }
@@ -197,7 +215,7 @@ public class Store extends Inventory {
 
         activeInventoryNameList = itemNames.subList(0, maxCurrentInventory);
 
-        Collections.sort(itemNames);
+        //Collections.sort(itemNames);
 
         refreshActiveInventory();
     }
@@ -205,17 +223,13 @@ public class Store extends Inventory {
     public void refreshActiveInventory()
     {
         activeInventory.clear();
-
+        Collections.sort(activeInventoryNameList);
         int i;
-        int total = getTotalItems();
+        int total = activeInventoryNameList.size();
         Item item;
-        for(i = 0; i < total; i++)
+        for (i = 0; i < total; i++)
         {
-            item = inventory.get(itemNames.get(i));
-            Boolean isActive = (activeInventoryNameList.indexOf(item.getName()) != -1);
-            //item.setActive(isActive);
-            if(isActive)
-                activeInventory.add(item);
+            activeInventory.add(inventory.get(activeInventoryNameList.get(i)));
         }
     }
 

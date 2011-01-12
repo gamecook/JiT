@@ -14,7 +14,8 @@ import com.gamecook.jit.time.Calendar;
  * Time: 8:35:25 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractGame {
+public abstract class AbstractGame
+{
 
     protected Inventory inventory;
     protected Locations locations;
@@ -34,7 +35,8 @@ public abstract class AbstractGame {
         return gameID;
     }
 
-    public void setCurrentLocation(String name) {
+    public void setCurrentLocation(String name)
+    {
         locations.gotoLocationByName(name);
     }
 
@@ -42,54 +44,65 @@ public abstract class AbstractGame {
 
     public abstract void nextTurn();
 
-    public Locations getLocations() {
+    public Locations getLocations()
+    {
         if (locations == null) locations = new Locations();
         return locations;
     }
 
-    public void setLocations(Locations locations) {
+    public void setLocations(Locations locations)
+    {
         this.locations = locations;
     }
 
-    public Bank getBank() {
+    public Bank getBank()
+    {
         if (bank == null) bank = new Bank(0, 0);
         return bank;
     }
 
-    public void setBank(Bank bank) {
+    public void setBank(Bank bank)
+    {
         this.bank = bank;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer()
+    {
         if (player == null) player = new Player("No Name");
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(Player player)
+    {
         this.player = player;
     }
 
-    public Calendar getCalendar() {
+    public Calendar getCalendar()
+    {
         if (calendar == null) calendar = new Calendar(0);
         return calendar;
     }
 
-    public void setCalendar(Calendar calendar) {
+    public void setCalendar(Calendar calendar)
+    {
         this.calendar = calendar;
     }
 
-    public Inventory getInventory() {
+    public Inventory getInventory()
+    {
         if (inventory == null) inventory = new Inventory(100);
         return inventory;
     }
 
     //TODO need to test
-    public int getScore() {
+    public int getScore()
+    {
         return (int) ((int) (bank.getCash() + bank.getSavings()) - bank.getLoan());
     }
 
     //TODO need to test
-    public double getNetWorth() {
+    public double getNetWorth()
+    {
         return bank.getSavings() + bank.getCash() + inventory.getCurrentTotal();
     }
 

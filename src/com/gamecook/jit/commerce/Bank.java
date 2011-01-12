@@ -1,6 +1,7 @@
 package com.gamecook.jit.commerce;
 
-public class Bank extends Wallet{
+public class Bank extends Wallet
+{
 
     public static final int DEPOSIT = 0;
     public static final int WITHDRAW = 1;
@@ -19,7 +20,8 @@ public class Bank extends Wallet{
      *
      * @param interest
      */
-    public Bank(double cash, double interest) {
+    public Bank(double cash, double interest)
+    {
         super(cash);
         this.interest = interest;
     }
@@ -29,7 +31,8 @@ public class Bank extends Wallet{
      *
      * @return
      */
-    public double getSavings() {
+    public double getSavings()
+    {
         return savings;
     }
 
@@ -38,7 +41,8 @@ public class Bank extends Wallet{
      *
      * @return
      */
-    public double getLoan() {
+    public double getLoan()
+    {
         return loan;
     }
 
@@ -47,7 +51,8 @@ public class Bank extends Wallet{
      *
      * @return
      */
-    public double getInterest() {
+    public double getInterest()
+    {
         return interest;
     }
 
@@ -58,8 +63,10 @@ public class Bank extends Wallet{
      * @param currentDay
      * @param totalDays
      */
-    public void nextDay(double currentDay, double totalDays) {
-        if (loan != 0) {
+    public void nextDay(double currentDay, double totalDays)
+    {
+        if (loan != 0)
+        {
             double interest = calculateInterest(this.interest, totalDays, loan, currentDay);
             loan += interest;
         }
@@ -71,12 +78,14 @@ public class Bank extends Wallet{
      * @param value
      * @return
      */
-    public double payOffLoan(double value) {
+    public double payOffLoan(double value)
+    {
         loan -= value;
 
         double remainder = 0;
 
-        if (loan < 0) {
+        if (loan < 0)
+        {
             remainder = loan * -1;
             loan = 0;
         }
@@ -91,11 +100,14 @@ public class Bank extends Wallet{
      * @param value
      * @return
      */
-    public double withdrawFromSavings(double value) {
-        if (value > savings) {
+    public double withdrawFromSavings(double value)
+    {
+        if (value > savings)
+        {
             value = savings;
             savings = 0;
-        } else {
+        } else
+        {
             savings -= value;
         }
 
@@ -107,7 +119,8 @@ public class Bank extends Wallet{
      *
      * @param value
      */
-    public void takeOutLoan(double value) {
+    public void takeOutLoan(double value)
+    {
         loan += value;
         addCash(value);
     }
@@ -117,35 +130,31 @@ public class Bank extends Wallet{
      *
      * @param value
      */
-    public void depositIntoSavings(double value) {
+    public void depositIntoSavings(double value)
+    {
         savings += value;
     }
 
 
-    protected double calculateInterest(double interest, double totalTime, double balance, double timeElapsed) {
+    protected double calculateInterest(double interest, double totalTime, double balance, double timeElapsed)
+    {
         double value = ((interest / totalTime) * balance) * timeElapsed;
 
         return round ? Math.round(value) : value;
     }
 
-    /**
-     * Allows you to trigger if the bank will round all interest transactions.
-     *
-     * @param value
-     */
-    public void setRoundInterestCalculation(Boolean value) {
-        round = value;
-    }
-
-    public void setInterest(double value) {
+    public void setInterest(double value)
+    {
         interest = value;
     }
 
-    public void setSavings(double value) {
+    public void setSavings(double value)
+    {
         savings = value;
     }
 
-    public void setLoan(double value) {
+    public void setLoan(double value)
+    {
         loan = value;
     }
 

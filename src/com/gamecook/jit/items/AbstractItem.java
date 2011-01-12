@@ -10,7 +10,8 @@ import java.util.Random;
  * Time: 5:43:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractItem implements Item {
+public abstract class AbstractItem implements Item
+{
 
     protected double minPrice = 0;
     protected double maxPrice = 0;
@@ -19,6 +20,7 @@ public abstract class AbstractItem implements Item {
     protected String description = "";
     protected int total;
     protected boolean active;
+    private Random randomGenerator;
 
     public boolean isActive()
     {
@@ -41,15 +43,19 @@ public abstract class AbstractItem implements Item {
      *
      * @param name the name of the Item.
      */
-    public AbstractItem(String name) {
+    public AbstractItem(String name)
+    {
         this.name = name;
         priceHistory = new ArrayList<Double>();
+        randomGenerator = new Random();
+
     }
 
     /**
      * @return
      */
-    public double getMinPrice() {
+    public double getMinPrice()
+    {
         return minPrice;
     }
 
@@ -59,14 +65,16 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setMinPrice(double value) {
+    public void setMinPrice(double value)
+    {
         minPrice = value < 0 ? 0 : value;
     }
 
     /**
      * @return
      */
-    public double getMaxPrice() {
+    public double getMaxPrice()
+    {
         return maxPrice;
     }
 
@@ -76,14 +84,16 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setMaxPrice(double value) {
+    public void setMaxPrice(double value)
+    {
         maxPrice = value <= minPrice ? minPrice : value;
     }
 
     /**
      * @return
      */
-    public double getPrice() {
+    public double getPrice()
+    {
         return price;
     }
 
@@ -92,7 +102,8 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setPrice(double value) {
+    public void setPrice(double value)
+    {
         price = value < 0 ? 0 : value;
         //TODO need to addCash in logic to limit the max number of price history.
         priceHistory.add(price);
@@ -104,7 +115,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
@@ -113,7 +125,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
@@ -122,7 +135,8 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setDescription(String value) {
+    public void setDescription(String value)
+    {
         description = value;
     }
 
@@ -132,9 +146,9 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public double generateNewPrice() {
+    public double generateNewPrice()
+    {
 
-        Random randomGenerator = new Random();
 
         setPrice(Math.round(minPrice + randomGenerator.nextDouble() * maxPrice));
         return price;
@@ -145,7 +159,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public int getTotal() {
+    public int getTotal()
+    {
         return total;
     }
 
@@ -155,7 +170,8 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setTotal(int value) {
+    public void setTotal(int value)
+    {
         if (value == total)
             return;
 
@@ -170,17 +186,20 @@ public abstract class AbstractItem implements Item {
      */
     abstract public Item clone(String name);
 
-    public ArrayList<Double> getPriceHistory() {
+    public ArrayList<Double> getPriceHistory()
+    {
         return priceHistory;
     }
 
-    public String priceHistoryToString(String delimeter) {
+    public String priceHistoryToString(String delimeter)
+    {
         if (delimeter == null)
             delimeter = ",";
         StringBuilder sb = new StringBuilder();
         int total = priceHistory.size();
         int i;
-        for (i = 0; i < total; i++) {
+        for (i = 0; i < total; i++)
+        {
             sb.append(Double.toString(priceHistory.get(i)));
             if (i + 1 < total)
                 sb.append(delimeter);
@@ -189,31 +208,38 @@ public abstract class AbstractItem implements Item {
         return sb.toString();
     }
 
-    public void parsePriceHistoryString(String history) {
+    public void parsePriceHistoryString(String history)
+    {
         String[] prices = history.split(",");
         int total = prices.length;
         int i;
         double d;
-        for (i = 0; i < total; i++) {
-            try {
+        for (i = 0; i < total; i++)
+        {
+            try
+            {
                 d = Double.valueOf(prices[i].trim()).doubleValue();
                 setPrice(d);
-            } catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe)
+            {
                 System.out.println("NumberFormatException: " + nfe.getMessage());
             }
         }
     }
 
     @Override
-    public String toString() {
-        return "{\"name\":\""+getName()+"\"," +
-                "\"minPrice\":" + minPrice+","+
-                "\"maxPrice\":" + maxPrice+","+
-                "\"price\":" + price+","+
-                "\"total\":" + total+","+
-                "\"description\":\"" + description+"\","+
-                "\"history\":["+priceHistoryToString(",")+"],"+
-                "\"active\":"+ active +""+
+    public String toString()
+    {
+        return "{\"name\":\"" + getName() + "\"," +
+                "\"minPrice\":" + minPrice + "," +
+                "\"maxPrice\":" + maxPrice + "," +
+                "\"price\":" + price + "," +
+                "\"total\":" + total + "," +
+                "\"description\":\"" + description + "\"," +
+                "\"history\":[" + priceHistoryToString(",") + "]," +
+                "\"active\":" + active + "" +
                 "}";
     }
+
+
 }

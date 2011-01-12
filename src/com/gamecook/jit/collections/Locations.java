@@ -3,7 +3,8 @@ package com.gamecook.jit.collections;
 import java.util.ArrayList;
 
 
-public class Locations {
+public class Locations
+{
     protected int currentLocation = -1;
     protected int lastID;
     protected ArrayList<String> locations = new ArrayList<String>();
@@ -12,11 +13,13 @@ public class Locations {
      * The map represent a collection of collections.
      * It tracks the current and last location visited.
      */
-    public Locations() {
+    public Locations()
+    {
 
     }
 
-    public int add(String value) {
+    public int add(String value)
+    {
         if (!locations.contains(value))
             locations.add(value);
 
@@ -29,7 +32,8 @@ public class Locations {
      *
      * @param id
      */
-    public String gotoLocationByID(int id) {
+    public String gotoLocationByID(int id)
+    {
         lastID = currentLocation;
 
         currentLocation = id;
@@ -42,7 +46,8 @@ public class Locations {
      *
      * @return
      */
-    public String getCurrentLocation() {
+    public String getCurrentLocation()
+    {
         return locations.get(currentLocation);
     }
 
@@ -52,7 +57,8 @@ public class Locations {
      * @param id
      * @return
      */
-    public String getLocation(int id) {
+    public String getLocation(int id)
+    {
         return locations.get(id);
     }
 
@@ -61,7 +67,8 @@ public class Locations {
      *
      * @return
      */
-    public String getLastLocation() {
+    public String getLastLocation()
+    {
         return locations.get(lastID);
     }
 
@@ -70,16 +77,19 @@ public class Locations {
         return lastID;
     }
 
-    public int getTotal() {
+    public int getTotal()
+    {
         return locations.size();
     }
 
     //TODO this needs a unit test
-    public void gotoLocationByName(String name) {
+    public void gotoLocationByName(String name)
+    {
         gotoLocationByID(locations.indexOf(name));
     }
 
-    public int getCurrentLocationID() {
+    public int getCurrentLocationID()
+    {
         return currentLocation;
     }
 }

@@ -7,7 +7,8 @@ package com.gamecook.jit.items;
  * Time: 5:45:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface Item {
+public interface Item
+{
 
     double getMinPrice();
 

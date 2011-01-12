@@ -9,7 +9,8 @@ import java.text.NumberFormat;
  * Time: 8:09:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MoneyToStringUtil {
+public class MoneyToStringUtil
+{
 
     /**
      * @param value
@@ -17,14 +18,7 @@ public class MoneyToStringUtil {
      */
     public static String convertToString(double value)
     {
-        /*if(dropRemainder)
-        {*/
-            return convertToString((int) value);
-        /*}
-        else
-        {
-            return "$"+NumberFormat.getInstance().format(value);
-        }*/
+        return convertToString((int) value);
     }
 
     /**
@@ -33,7 +27,7 @@ public class MoneyToStringUtil {
      */
     public static String convertToString(int value)
     {
-        return "$"+NumberFormat.getInstance().format(value);
+        return "$" + NumberFormat.getInstance().format(value);
     }
 
 }

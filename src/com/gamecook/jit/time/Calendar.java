@@ -1,6 +1,7 @@
 package com.gamecook.jit.time;
 
-public class Calendar {
+public class Calendar
+{
 
     private int days;
     private int totalDays;
@@ -12,7 +13,8 @@ public class Calendar {
      *
      * @param days
      */
-    public Calendar(int days) {
+    public Calendar(int days)
+    {
         this.days = totalDays = days;
     }
 
@@ -22,7 +24,8 @@ public class Calendar {
      *
      * @return
      */
-    public int getDays() {
+    public int getDays()
+    {
         return days;
     }
 
@@ -32,7 +35,8 @@ public class Calendar {
      *
      * @param value
      */
-    public void setDays(int value) {
+    public void setDays(int value)
+    {
         days = value;
     }
 
@@ -42,7 +46,8 @@ public class Calendar {
      *
      * @return
      */
-    public int getTotalDays() {
+    public int getTotalDays()
+    {
         return totalDays;
     }
 
@@ -52,7 +57,8 @@ public class Calendar {
      * @param value
      * @return
      */
-    public void setTotalDays(int value) {
+    public void setTotalDays(int value)
+    {
         totalDays = value;
     }
 
@@ -61,14 +67,16 @@ public class Calendar {
      *
      * @return
      */
-    public Boolean hasNextDay() {
+    public Boolean hasNextDay()
+    {
         return days < 1 ? false : true;
     }
 
     /**
      * Decreases the number of days by 1
      */
-    public void nextDay() {
+    public void nextDay()
+    {
         days -= 1;
     }
 

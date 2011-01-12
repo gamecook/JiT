@@ -1,6 +1,5 @@
 package com.gamecook.jit.config;
 
-import com.gamecook.jit.events.RandomEvent;
 import com.gamecook.jit.items.Item;
 
 import java.util.ArrayList;
@@ -46,17 +45,13 @@ public interface Config
 
     ArrayList<Item> getItems();
 
-    void setItems(ArrayList<Item> items);
-
     int getMaxTotal();
 
     int getMaxCurrentInventory();
 
-    ArrayList<RandomEvent> getRandomEvents();
+    int getTotalEvents();
 
     int getRandomEventOdds();
-
-    //int getDefaultRandomEventID();
 
     String getGameName();
 }
