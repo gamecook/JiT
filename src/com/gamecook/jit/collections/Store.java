@@ -152,7 +152,7 @@ public class Store extends Inventory
             return;
 
         if (getCurrentTotal() > maxTotal)
-            throw new Error("Current total cann't go above the Max Total.");
+            throw new Error("Current total can't go above the Max Total.");
     }
 
     public int getCurrentItemID()
@@ -223,14 +223,42 @@ public class Store extends Inventory
     public void refreshActiveInventory()
     {
         activeInventory.clear();
-        Collections.sort(activeInventoryNameList);
+        Collections.sort(itemNames);
         int i;
-        int total = activeInventoryNameList.size();
+        int total = getTotalItems();
         Item item;
+        String cigarName;
+
         for (i = 0; i < total; i++)
         {
-            activeInventory.add(inventory.get(activeInventoryNameList.get(i)));
+            cigarName = itemNames.get(i);
+
+            if(mode == BUY)
+            {
+                if(activeInventoryNameList.indexOf( cigarName) != -1)
+                {
+                     activeInventory.add(inventory.get(cigarName));
+                }
+            }
+            else if(mode == SELL)
+            {
+                item = inventory.get(cigarName);
+                if(item.getTotal() > 0)
+                {
+                    if(activeInventoryNameList.indexOf( cigarName) != -1)
+                    {
+                        item.setActive(true);
+                    }
+                    else
+                    {
+                        item.setActive(false);
+                    }
+                    activeInventory.add(item);
+                }
+            }
+
         }
+
     }
 
 }

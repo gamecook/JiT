@@ -1,5 +1,7 @@
 package com.gamecook.jit.commerce;
 
+import java.util.StringTokenizer;
+
 public class Bank extends Wallet
 {
 
@@ -175,6 +177,18 @@ public class Bank extends Wallet
     {
         subtractCash(value);
         payOffLoan(value);
+    }
+
+    @Override
+    public String toString()
+    {
+        String partial = "{\"bank\":{"+
+                "\"savings\":" + savings + "," +
+                "\"interest\":" + interest + "," +
+                "\"loan\":" + loan + "," +
+                "\"round\":" + round + ",";
+
+        return super.toString().replace("wallet\":{", partial);
     }
 
 }

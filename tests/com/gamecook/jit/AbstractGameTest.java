@@ -5,7 +5,6 @@ import com.gamecook.jit.commerce.Bank;
 import com.gamecook.jit.config.Config;
 import com.gamecook.jit.items.AbstractItem;
 import com.gamecook.jit.items.Item;
-import com.gamecook.jit.player.Player;
 import com.gamecook.jit.time.Calendar;
 import org.junit.After;
 import org.junit.Before;
@@ -91,19 +90,6 @@ public class AbstractGameTest {
         Bank bank = game.getBank();
         bank.setCash(100);
         assertEquals(game.getBank().getCash(), 100.0);
-    }
-
-    @Test
-    public void testGetPlayer() throws Exception {
-        assertNotNull(game.getPlayer());
-        assertEquals(game.getPlayer().getName(), "No Name");
-    }
-
-    @Test
-    public void testSetPlayer() throws Exception {
-        Player player = new Player("FooBar");
-        game.setPlayer(player);
-        assertEquals(game.getPlayer().getName(), "FooBar");
     }
 
     @Test

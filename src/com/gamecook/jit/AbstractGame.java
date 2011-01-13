@@ -4,7 +4,6 @@ import com.gamecook.jit.collections.Inventory;
 import com.gamecook.jit.collections.Locations;
 import com.gamecook.jit.commerce.Bank;
 import com.gamecook.jit.config.Config;
-import com.gamecook.jit.player.Player;
 import com.gamecook.jit.time.Calendar;
 
 /**
@@ -20,7 +19,6 @@ public abstract class AbstractGame
     protected Inventory inventory;
     protected Locations locations;
     protected Bank bank;
-    protected Player player;
     protected Calendar calendar;
     protected String gameName;
     protected int gameID;
@@ -64,17 +62,6 @@ public abstract class AbstractGame
     public void setBank(Bank bank)
     {
         this.bank = bank;
-    }
-
-    public Player getPlayer()
-    {
-        if (player == null) player = new Player("No Name");
-        return player;
-    }
-
-    public void setPlayer(Player player)
-    {
-        this.player = player;
     }
 
     public Calendar getCalendar()

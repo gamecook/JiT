@@ -80,4 +80,13 @@ public class Calendar
         days -= 1;
     }
 
+    @Override
+    public String toString()
+    {
+        return "{\"calendar\":{"+
+                "{\"days\":" + days + "," +
+                "\"totalDays\":" + totalDays + "}" +
+                "}";
+    }
+
 }

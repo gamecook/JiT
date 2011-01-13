@@ -3,7 +3,7 @@ package com.gamecook.jit.commerce;
 public class Wallet
 {
 
-    private double _cash = 0;
+    private double cash = 0;
 
     /**
      * The wallet is a basic container for currency.
@@ -14,7 +14,7 @@ public class Wallet
      */
     public Wallet(double value)
     {
-        _cash = value;
+        cash = value;
     }
 
     /**
@@ -24,7 +24,7 @@ public class Wallet
      */
     public double getCash()
     {
-        return _cash;
+        return cash;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Wallet
      */
     public void setCash(double value)
     {
-        _cash = value;
+        cash = value;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Wallet
      */
     public double addCash(double value)
     {
-        return _cash += value;
+        return cash += value;
     }
 
     /**
@@ -54,6 +54,14 @@ public class Wallet
      */
     public double subtractCash(double value)
     {
-        return _cash -= value;
+        return cash -= value;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "{\"wallet\":{"+
+                "\"cash\":" + cash + "}" +
+                "}";
     }
 }
