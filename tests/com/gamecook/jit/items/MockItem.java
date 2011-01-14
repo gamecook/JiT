@@ -14,7 +14,8 @@ public class MockItem extends AbstractItem
         super(name);
     }
 
-    public Item clone(String name) {
+    public Item clone(String name)
+    {
         return new MockItem(name);
     }
 

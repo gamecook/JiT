@@ -20,23 +20,44 @@ public abstract class AbstractItem implements Item
     protected String description = "";
     protected int total;
     protected boolean active;
-    private Random randomGenerator;
+    protected Random randomGenerator;
+    protected ArrayList<Double> priceHistory;
 
+    public int getMaxHistory()
+    {
+        return maxHistory;
+    }
+
+    public void setMaxHistory(int maxHistory)
+    {
+        this.maxHistory = maxHistory;
+    }
+
+    protected int maxHistory = -1;
+    /**
+     * Returns is the item is flagged as active.
+     *
+     * @return
+     */
     public boolean isActive()
     {
         return active;
     }
 
+    /**
+     * Sets the active value of the item.
+     *
+     * @param active
+     */
     public void setActive(boolean active)
     {
         this.active = active;
     }
 
-    protected ArrayList<Double> priceHistory;
 
     /**
      * An Abstract class to represent an Item that can be used
-     * with FiT. Items can randomly generate their price based
+     * with JiT. Items can randomly generate their price based
      * on a min/max or can be explicitly set. Also Items can
      * have a total representing how many of each are in a
      * collection.
@@ -52,6 +73,8 @@ public abstract class AbstractItem implements Item
     }
 
     /**
+     * Returns the min price for the item.
+     *
      * @return
      */
     public double getMinPrice()
@@ -106,7 +129,17 @@ public abstract class AbstractItem implements Item
     {
         price = value < 0 ? 0 : value;
         //TODO need to addCash in logic to limit the max number of price history.
-        priceHistory.add(price);
+        addToHistory(price);
+    }
+
+    protected void addToHistory(double value)
+    {
+        priceHistory.add(value);
+
+        if(maxHistory > 0 && priceHistory.size() > maxHistory)
+        {
+            priceHistory.remove(0);
+        }
     }
 
     /**
@@ -148,8 +181,6 @@ public abstract class AbstractItem implements Item
      */
     public double generateNewPrice()
     {
-
-
         setPrice(Math.round(minPrice + randomGenerator.nextDouble() * maxPrice));
         return price;
     }
@@ -191,10 +222,10 @@ public abstract class AbstractItem implements Item
         return priceHistory;
     }
 
-    public String priceHistoryToString(String delimeter)
+    public String priceHistoryToString(String delimiter)
     {
-        if (delimeter == null)
-            delimeter = ",";
+        if (delimiter == null)
+            delimiter = ",";
         StringBuilder sb = new StringBuilder();
         int total = priceHistory.size();
         int i;
@@ -202,7 +233,7 @@ public abstract class AbstractItem implements Item
         {
             sb.append(Double.toString(priceHistory.get(i)));
             if (i + 1 < total)
-                sb.append(delimeter);
+                sb.append(delimiter);
         }
 
         return sb.toString();

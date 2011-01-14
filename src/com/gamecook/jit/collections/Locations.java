@@ -82,7 +82,6 @@ public class Locations
         return locations.size();
     }
 
-    //TODO this needs a unit test
     public void gotoLocationByName(String name)
     {
         gotoLocationByID(locations.indexOf(name));
@@ -104,7 +103,7 @@ public class Locations
 
         for (i = 0; i < total; i++)
         {
-            output += locations.get(i)+",";
+            output += "\""+locations.get(i)+"\",";
         }
 
         return output.substring(0, output.length() - 1) + "]}}";

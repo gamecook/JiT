@@ -9,7 +9,7 @@ public class Calendar
     /**
      * This is a simple turn managing class. Each
      * turn is represented by a day, calling the
-     * nextDat method advances the turns.
+     * nextDay method advances the turns.
      *
      * @param days
      */
@@ -83,7 +83,7 @@ public class Calendar
     @Override
     public String toString()
     {
-        return "{\"calendar\":{"+
+        return "{\"calendar\":"+
                 "{\"days\":" + days + "," +
                 "\"totalDays\":" + totalDays + "}" +
                 "}";

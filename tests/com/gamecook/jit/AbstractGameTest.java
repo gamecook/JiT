@@ -10,7 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 
 /**
@@ -20,86 +21,82 @@ import static junit.framework.Assert.*;
  * Time: 8:43:44 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AbstractGameTest {
+public class AbstractGameTest
+{
     private MockGame game;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         game = new MockGame();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         game = null;
     }
 
     @Test
-    public void testGetLocations() throws Exception {
+    public void testGetLocations() throws Exception
+    {
         assertNotNull(game.getLocations());
         assertEquals(game.getLocations().getTotal(), 0);
     }
 
     @Test
-    public void testSetLocations() throws Exception {
+    public void testSetLocations() throws Exception
+    {
         Locations locations = new Locations();
-            locations.add("LocationA");
-            locations.add("LocationB");
-            locations.add("LocationC");
+        locations.add("LocationA");
+        locations.add("LocationB");
+        locations.add("LocationC");
         game.setLocations(locations);
-        
+
         assertEquals(game.getLocations().getTotal(), 3);
     }
 
-    /*@Test
-    public void testGetStore() throws Exception {
-        assertNotNull(game.getStore());
-        assertEquals(game.getStore().getTotalItems(), 0);
-    }*/
-
-    /*@Test
-    public void testSetStore() throws Exception {
-        Store store =new Store();
-        store.addCash(new MockItem("FooBar"), 10);
-        store.addCash(new MockItem("FooBar2"), 5);
-        game.setStore(store);
-        assertEquals(game.getStore().getTotalItems(), 2);
-    }*/
-
     @Test
-    public void testGetBank() throws Exception {
+    public void testGetBank() throws Exception
+    {
         assertNotNull(game.getBank());
         assertEquals(game.getBank().getInterest(), 0.0);
     }
 
     @Test
-    public void testSetBank() throws Exception {
+    public void testSetBank() throws Exception
+    {
         Bank bank = new Bank(100, 4.5);
         game.setBank(bank);
         assertEquals(game.getBank().getInterest(), 4.5);
-        
+
     }
 
     @Test
-    public void testGetCash() throws Exception {
+    public void testGetCash() throws Exception
+    {
         assertNotNull(game.getBank());
         assertEquals(game.getBank().getCash(), 0.0);
     }
 
     @Test
-    public void testSetCash() throws Exception {
+    public void testSetCash() throws Exception
+    {
         Bank bank = game.getBank();
         bank.setCash(100);
         assertEquals(game.getBank().getCash(), 100.0);
     }
 
     @Test
-    public void testGetCalendar() throws Exception {
+    public void testGetCalendar() throws Exception
+    {
         assertNotNull(game.getCalendar());
         assertEquals(game.getCalendar().getDays(), 0);
     }
 
     @Test
-    public void testSetCalendar() throws Exception {
+    public void testSetCalendar() throws Exception
+    {
 
         game.setCalendar(new Calendar(30));
         assertEquals(game.getCalendar().getDays(), 30);
@@ -111,12 +108,14 @@ class MockGame extends AbstractGame
 {
 
     @Override
-    public void startGame(Config config) {
+    public void startGame(Config config)
+    {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void nextTurn() {
+    public void nextTurn()
+    {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -130,13 +129,15 @@ class MockGame extends AbstractGame
 class MockItem extends AbstractItem
 {
 
-    public MockItem(String name){
+    public MockItem(String name)
+    {
         super(name);
     }
-    
+
     @Override
-    public Item clone(String name) {
+    public Item clone(String name)
+    {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
-    
+
 }

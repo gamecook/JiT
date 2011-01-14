@@ -1,7 +1,6 @@
 package com.gamecook.jit.collections;
 
 
-
 import com.gamecook.jit.items.Item;
 import com.gamecook.jit.items.MockItem;
 import org.junit.Before;
@@ -19,12 +18,14 @@ import static junit.framework.Assert.assertEquals;
  * Time: 10:14:56 PM
  * To change this template use File | Settings | File Templates.
  */
-public class InventoryTest {
+public class InventoryTest
+{
 
     private Inventory inventory;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         inventory = new Inventory(100);
 
         // Item A
@@ -47,7 +48,8 @@ public class InventoryTest {
     }
 
     @Test
-    public void testAdd() throws Exception {
+    public void testAdd() throws Exception
+    {
         Item itemD = new MockItem("Item D");
 
         inventory.add(itemD, 1);
@@ -59,12 +61,14 @@ public class InventoryTest {
     }
 
     @Test
-    public void testRemove() throws Exception {
+    public void testRemove() throws Exception
+    {
         assertTrue(inventory.remove("Item B"));
     }
 
     @Test
-    public void testRemoveFail() throws Exception {
+    public void testRemoveFail() throws Exception
+    {
         assertFalse(inventory.remove("Item X"));
     }
 
@@ -120,7 +124,7 @@ public class InventoryTest {
         assertEquals(inventory.getItemTotal("FooBar"), 5);
     }
 
-    @org.junit.Test(expected=Error.class)
+    @org.junit.Test(expected = Error.class)
     public void testMaxInventory()
     {
         Item tmpItem = new MockItem("FooBar");
@@ -159,7 +163,7 @@ public class InventoryTest {
         assertEquals(tmpInventory.getCurrentTotal(), 0);
     }
 
-    @org.junit.Test(expected=Error.class)
+    @org.junit.Test(expected = Error.class)
     public void testSetMaxTotalLowerThenCurrentTotal()
     {
         Inventory tmpInventory = new Inventory(100);
@@ -170,7 +174,7 @@ public class InventoryTest {
         tmpInventory.setMaxTotal(50);
     }
 
-    @org.junit.Test(expected=Error.class)
+    @org.junit.Test(expected = Error.class)
     public void testSetMaxTotalLowerThenCurrentTotalAtZero()
     {
         Inventory tmpInventory = new Inventory(100);
@@ -208,6 +212,29 @@ public class InventoryTest {
         ArrayList<String> names = inventory.getItemNames();
 
         assertEquals(names.indexOf("Item A"), -1);
+    }
+
+    @Test
+    public void testToString() throws Exception
+    {
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            inventory.get("Item A").setPrice(i);
+            inventory.get("Item B").setPrice(i);
+            inventory.get("Item C").setPrice(i);
+        }
+
+        assertEquals(inventory.toString(), "{\"inventory\":{\"maxTotal\":100,\"currentTotal\":15,\"items\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false}]}}");
+    }
+
+    @Test
+    public void testClear()
+    {
+        inventory.clear();
+        assertEquals(inventory.getTotalItems(), 0);
+        assertEquals(inventory.getItemNames().size(), 0);
     }
 
 }

@@ -211,11 +211,16 @@ public class Store extends Inventory
      */
     public void generateRandomInventoryList()
     {
+        activeInventoryNameList.clear();
+
         Collections.shuffle(itemNames);
 
-        activeInventoryNameList = itemNames.subList(0, maxCurrentInventory);
+        int i;
 
-        //Collections.sort(itemNames);
+        for (i = 0; i < maxCurrentInventory; i++)
+        {
+            activeInventoryNameList.add(itemNames.get(i));
+        }
 
         refreshActiveInventory();
     }
@@ -223,7 +228,9 @@ public class Store extends Inventory
     public void refreshActiveInventory()
     {
         activeInventory.clear();
+
         Collections.sort(itemNames);
+
         int i;
         int total = getTotalItems();
         Item item;

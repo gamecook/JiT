@@ -11,13 +11,8 @@ import static junit.framework.Assert.*;
  * Time: 9:52:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CalendarTest{
-
-     @Test
-     public void simpleAdd() {
-
-         assertTrue(true);
-     }
+public class CalendarTest
+{
 
     @Test
     public void testCreateCalendar()
@@ -76,6 +71,13 @@ public class CalendarTest{
         Calendar cal = new Calendar(0);
         cal.setTotalDays(100);
         assertEquals(cal.getTotalDays(), 100);
+    }
+
+    @Test
+    public void testToString()
+    {
+        Calendar cal = new Calendar(10);
+        assertEquals(cal.toString(), "{\"calendar\":{\"days\":10,\"totalDays\":10}}");
     }
 
 }

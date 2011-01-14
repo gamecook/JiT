@@ -117,7 +117,7 @@ public class Bank extends Wallet
     }
 
     /**
-     * Adds to the loan.
+     * Increases the loan amount and your cash.
      *
      * @param value
      */
@@ -126,17 +126,6 @@ public class Bank extends Wallet
         loan += value;
         addCash(value);
     }
-
-    /**
-     * Adds money to your savings account.
-     *
-     * @param value
-     */
-    public void depositIntoSavings(double value)
-    {
-        savings += value;
-    }
-
 
     protected double calculateInterest(double interest, double totalTime, double balance, double timeElapsed)
     {
@@ -160,21 +149,26 @@ public class Bank extends Wallet
         loan = value;
     }
 
-    // Bank Helper Methods
+    /**
+     * Adds money to your savings account from your cash
+     *
+     * @param value
+     */
     public void deposit(double value)
     {
+        //TODO need logic to make sure you can't deposit more then you have in cash
         subtractCash(value);
-        depositIntoSavings(value);
+        savings += value;
     }
 
     public void withdraw(double value)
     {
-        addCash(value);
-        withdrawFromSavings(value);
+        addCash(withdrawFromSavings(value));
     }
 
     public void replayLoan(double value)
     {
+        //TODO need logic to make sure you can't replay more then you have or owe
         subtractCash(value);
         payOffLoan(value);
     }
@@ -182,7 +176,7 @@ public class Bank extends Wallet
     @Override
     public String toString()
     {
-        String partial = "{\"bank\":{"+
+        String partial = "bank\":{"+
                 "\"savings\":" + savings + "," +
                 "\"interest\":" + interest + "," +
                 "\"loan\":" + loan + "," +

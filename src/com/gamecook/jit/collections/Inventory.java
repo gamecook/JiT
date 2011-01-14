@@ -68,6 +68,7 @@ public class Inventory
     /**
      * @param value
      */
+    //TODO need to add tests for this
     protected void subtractFromTotal(int value)
     {
         if (maxTotal == -1)
@@ -81,6 +82,7 @@ public class Inventory
     /**
      * @param value
      */
+    //TODO need to add tests for this
     protected void addToTotal(int value)
     {
         if (maxTotal == -1)
@@ -196,6 +198,7 @@ public class Inventory
         return inventory.containsKey(name);
     }
 
+    //TODO this needs to be tested
     public String[] getInventoryAsArray()
     {
         //TODO this needs to have some sort of invalidation

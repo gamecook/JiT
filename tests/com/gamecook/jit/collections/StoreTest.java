@@ -14,11 +14,13 @@ import static junit.framework.Assert.*;
  * Time: 3:44:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class StoreTest {
+public class StoreTest
+{
     private Store store;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         store = new Store(-1);
 
         // Item A
@@ -41,7 +43,8 @@ public class StoreTest {
     }
 
     @Test
-    public void testRefresh() throws Exception {
+    public void testRefresh() throws Exception
+    {
 
         store.refresh();
 
@@ -50,7 +53,8 @@ public class StoreTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() throws Exception
+    {
 
 
         for (int i = 0; i < 3; i++)
