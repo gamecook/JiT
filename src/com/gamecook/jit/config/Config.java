@@ -13,7 +13,7 @@ public interface Config
 {
     int getGameID();
 
-    void setDifficultyLevel(int difficultyLevel);
+    void setGameID(int difficultyLevel);
 
     int getCurrentLocation();
 
@@ -54,4 +54,6 @@ public interface Config
     int getRandomEventOdds();
 
     String getGameName();
+
+    ArrayList<String> getLocationNames();
 }

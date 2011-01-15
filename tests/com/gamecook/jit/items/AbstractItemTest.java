@@ -117,7 +117,7 @@ public class AbstractItemTest extends AbstractItem
     }
 
     @Override
-    public Item clone(String name)
+    public Item clone()
     {
         return null;
     }

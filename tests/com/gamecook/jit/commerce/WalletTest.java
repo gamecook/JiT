@@ -41,6 +41,6 @@ public class WalletTest
     public void testToString()
     {
         Wallet wallet = new Wallet(100);
-        assertEquals(wallet.toString(), "{\"wallet\":{\"cash\":100.0}}");
+        assertEquals(wallet.toString(), "\"wallet\":{\"cash\":100.0}");
     }
 }

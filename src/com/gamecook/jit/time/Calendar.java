@@ -83,10 +83,9 @@ public class Calendar
     @Override
     public String toString()
     {
-        return "{\"calendar\":"+
+        return "\"calendar\":"+
                 "{\"days\":" + days + "," +
-                "\"totalDays\":" + totalDays + "}" +
-                "}";
+                "\"totalDays\":" + totalDays + "}";
     }
 
 }

@@ -96,7 +96,7 @@ public class Locations
     public String toString()
     {
 
-        String output = "{\"locations\":{\"currentLocation\":" + currentLocation + ",\"lastID\":" + lastID + ",\"names\":[";
+        String output = "\"locations\":{\"currentLocation\":" + currentLocation + ",\"lastID\":" + lastID + ",\"names\":[";
 
         int i;
         int total = locations.size();
@@ -106,6 +106,6 @@ public class Locations
             output += "\""+locations.get(i)+"\",";
         }
 
-        return output.substring(0, output.length() - 1) + "]}}";
+        return output.substring(0, output.length() - 1) + "]}";
     }
 }

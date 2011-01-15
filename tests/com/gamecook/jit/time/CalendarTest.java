@@ -77,7 +77,7 @@ public class CalendarTest
     public void testToString()
     {
         Calendar cal = new Calendar(10);
-        assertEquals(cal.toString(), "{\"calendar\":{\"days\":10,\"totalDays\":10}}");
+        assertEquals(cal.toString(), "\"calendar\":{\"days\":10,\"totalDays\":10}");
     }
 
 }

@@ -57,8 +57,10 @@ public class Store extends Inventory
         {
             activeInventoryNameList.remove(name);
         }
-        return super.remove(name);
+        Boolean success = super.remove(name);
+        refreshActiveInventory();
 
+        return success;
     }
 
     /**
@@ -144,15 +146,6 @@ public class Store extends Inventory
         }
 
         return currentTotal;
-    }
-
-    protected void addToTotal(int value)
-    {
-        if (maxTotal == -1)
-            return;
-
-        if (getCurrentTotal() > maxTotal)
-            throw new Error("Current total can't go above the Max Total.");
     }
 
     public int getCurrentItemID()

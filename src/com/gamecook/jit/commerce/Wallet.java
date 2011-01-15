@@ -60,8 +60,7 @@ public class Wallet
     @Override
     public String toString()
     {
-        return "{\"wallet\":{"+
-                "\"cash\":" + cash + "}" +
-                "}";
+        return "\"wallet\":{"+
+                "\"cash\":" + cash + "}";
     }
 }

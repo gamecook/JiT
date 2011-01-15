@@ -212,10 +212,9 @@ public abstract class AbstractItem implements Item
     /**
      * An abstract clone method for AbstractItem.
      *
-     * @param name
      * @return
      */
-    abstract public Item clone(String name);
+    abstract public Item clone();
 
     public ArrayList<Double> getPriceHistory()
     {

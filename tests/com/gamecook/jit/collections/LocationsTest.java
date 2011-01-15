@@ -97,6 +97,6 @@ public class LocationsTest
     @Test
     public void testToString()
     {
-        assertEquals(locations.toString(), "{\"locations\":{\"currentLocation\":-1,\"lastID\":0,\"names\":[\"LocationA\",\"LocationB\",\"LocationC\"]}}");
+        assertEquals(locations.toString(), "\"locations\":{\"currentLocation\":-1,\"lastID\":0,\"names\":[\"LocationA\",\"LocationB\",\"LocationC\"]}");
     }
 }

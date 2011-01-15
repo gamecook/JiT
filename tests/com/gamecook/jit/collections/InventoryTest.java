@@ -226,7 +226,7 @@ public class InventoryTest
             inventory.get("Item C").setPrice(i);
         }
 
-        assertEquals(inventory.toString(), "{\"inventory\":{\"maxTotal\":100,\"currentTotal\":15,\"items\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false}]}}");
+        assertEquals(inventory.toString(), "\"inventory\":{\"maxTotal\":100,\"currentTotal\":15,\"items\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false}]}");
     }
 
     @Test

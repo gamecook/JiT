@@ -172,6 +172,6 @@ public class BankTest extends Bank
     @Test
     public void testToString()
     {
-        assertEquals(toString(), "{\"bank\":{\"savings\":30.0,\"interest\":0.1299,\"loan\":2500.0,\"round\":true,\"cash\":2470.0}}");
+        assertEquals(toString(), "\"bank\":{\"savings\":30.0,\"interest\":0.1299,\"loan\":2500.0,\"round\":true,\"cash\":2470.0}");
     }
 }

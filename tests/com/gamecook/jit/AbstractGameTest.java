@@ -135,7 +135,7 @@ class MockItem extends AbstractItem
     }
 
     @Override
-    public Item clone(String name)
+    public Item clone()
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

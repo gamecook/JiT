@@ -232,7 +232,7 @@ public class Inventory
     public String toString()
     {
 
-        String output = "{\"inventory\":{\"maxTotal\":" + getMaxTotal() + ",\"currentTotal\":" + getCurrentTotal() + ",\"items\":[";
+        String output = "\"inventory\":{\"maxTotal\":" + getMaxTotal() + ",\"currentTotal\":" + getCurrentTotal() + ",\"items\":[";
 
         int i;
         int total = getTotalItems();
@@ -242,7 +242,7 @@ public class Inventory
             output += getItemByID(i).toString() + ",";
         }
 
-        return output.substring(0, output.length() - 1) + "]}}";
+        return output.substring(0, output.length() - 1) + "]}";
     }
 
     public ArrayList<String> getItemNames()
