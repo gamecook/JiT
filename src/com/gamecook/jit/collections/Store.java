@@ -98,7 +98,20 @@ public class Store extends Inventory
     @Override
     public String toString()
     {
-        return super.toString().replace("inventory", "store");
+        String output = "\"store\":{\"currentItemID\":" + currentItemID + ",\"mode\":" + mode + ",\"maxCurrentInventory\":" + maxCurrentInventory + ",\"activeInventoryNames\":[";
+
+        Collections.sort(activeInventoryNameList);
+
+        int i;
+        int total = activeInventoryNameList.size();
+
+        for (i = 0; i < total; i++)
+        {
+            output += "\""+activeInventoryNameList.get(i) + "\",";
+        }
+        output = output.substring(0, output.length() - 1) + "],";
+
+        return super.toString().replace("\"inventory\":{", output);
     }
 
     /**
