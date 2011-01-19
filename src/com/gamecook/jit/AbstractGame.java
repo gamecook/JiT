@@ -95,4 +95,13 @@ public abstract class AbstractGame
 
     public abstract String toString();
 
+    public void setGameID(int gameID)
+    {
+        this.gameID = gameID;
+    }
+
+    public void setGameName(String gameName)
+    {
+        this.gameName = gameName;
+    }
 }

@@ -274,4 +274,13 @@ public class Store extends Inventory
 
     }
 
+    public void setCurrentID(int value)
+    {
+        currentItemID = value;
+    }
+
+    public void setActiveInventoryNames(ArrayList<String> value)
+    {
+        activeInventoryNameList = value;
+    }
 }
