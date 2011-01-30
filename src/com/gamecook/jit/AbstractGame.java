@@ -38,8 +38,6 @@ public abstract class AbstractGame
         locations.gotoLocationByName(name);
     }
 
-    public abstract void startGame(Config config);
-
     public abstract void nextTurn();
 
     public Locations getLocations()

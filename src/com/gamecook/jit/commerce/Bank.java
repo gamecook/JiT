@@ -185,4 +185,8 @@ public class Bank extends Wallet
         return super.toString().replace("wallet\":{", partial);
     }
 
+    public void setRound(boolean value)
+    {
+        this.round = value;
+    }
 }

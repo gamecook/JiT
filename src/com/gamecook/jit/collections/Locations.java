@@ -108,4 +108,14 @@ public class Locations
 
         return output.substring(0, output.length() - 1) + "]}";
     }
+
+    public void setCurrentLocation(int value)
+    {
+        currentLocation = value;
+    }
+
+    public void setLastID(int value)
+    {
+        lastID = value;
+    }
 }

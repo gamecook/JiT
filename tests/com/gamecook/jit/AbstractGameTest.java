@@ -108,12 +108,6 @@ class MockGame extends AbstractGame
 {
 
     @Override
-    public void startGame(Config config)
-    {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public void nextTurn()
     {
         //To change body of implemented methods use File | Settings | File Templates.
