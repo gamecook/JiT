@@ -3,8 +3,8 @@ package com.gamecook.jit.items;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,75 +13,88 @@ import static junit.framework.Assert.assertEquals;
  * Time: 4:04:19 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AbstractItemTest extends AbstractItem {
+public class AbstractItemTest extends AbstractItem
+{
 
     public AbstractItemTest()
     {
         super("AbstractItemTest");
     }
-    
+
     @Before
-    public void setUp(){
-        
+    public void setUp()
+    {
+
     }
 
     @Test
-    public void testSetMinPriceLowerThenZero(){
+    public void testSetMinPriceLowerThenZero()
+    {
         setMinPrice(-5);
-        assertEquals(minPrice, 0.0);
+        assertEquals(getMinPrice(), 0.0);
     }
 
     @Test
-    public void testGetSetMinPrice(){
+    public void testGetSetMinPrice()
+    {
         setMinPrice(1);
-        assertEquals(minPrice, 1.0);
+        assertEquals(getMinPrice(), 1.0);
     }
 
     @Test
-    public void testSetGetMaxPrice(){
+    public void testSetGetMaxPrice()
+    {
         setMaxPrice(10);
-        assertEquals(maxPrice,10.0);
+        assertEquals(getMaxPrice(), 10.0);
     }
 
     @Test
-    public void testSetMaxPriceLowerThenMinPrice(){
+    public void testSetMaxPriceLowerThenMinPrice()
+    {
         setMinPrice(5);
         setMaxPrice(1);
-        assertEquals(maxPrice,5.0);
+        assertEquals(getMaxPrice(), 5.0);
     }
 
     @Test
-    public void testSetMaxPrice(){
+    public void testSetMaxPrice()
+    {
         setMaxPrice(100);
-        assertEquals(maxPrice, 100.0);
+        assertEquals(getMaxPrice(), 100.0);
     }
 
     @Test
-    public void testGetSetPrice(){
+    public void testGetSetPrice()
+    {
         setPrice(10);
-        assertEquals(price, 10.0);
+        assertEquals(getPrice(), 10.0);
     }
 
     @Test
-    public void testSetPriceLowerThenZero(){
+    public void testSetPriceLowerThenZero()
+    {
         setPrice(-10);
-        assertEquals(price, 0.0);
+        assertEquals(getPrice(), 0.0);
     }
 
     @Test
-    public void testGetSetName(){
-        assertEquals(name, "AbstractItemTest");
+    public void testGetSetName()
+    {
+        assertEquals(getName(), "AbstractItemTest");
     }
 
     @Test
-    public void testGetSetDescription(){
+    public void testGetSetDescription()
+    {
 
         setDescription("This is a simple test");
-        assertEquals(description, "This is a simple test");
+        assertEquals(getDescription(), "This is a simple test");
     }
 
     @Test
-    public void testGenerateNewPrice(){
+    public void testGenerateNewPrice()
+    {
+        //TODO this sometimes throws an AssertionFailedError: null
         setMinPrice(1);
         setMaxPrice(10);
         setPrice(0);
@@ -93,18 +106,19 @@ public class AbstractItemTest extends AbstractItem {
     public void testGetSetTotal()
     {
         setTotal(100);
-        assertEquals(total, 100);
+        assertEquals(getTotal(), 100);
     }
 
     @Test
     public void testSetTotalLessThenZero()
     {
         setTotal(-50);
-        assertEquals(total, 0);
+        assertEquals(getTotal(), 0);
     }
 
     @Override
-    public Item clone(String name) {
+    public Item clone()
+    {
         return null;
     }
 
@@ -123,14 +137,14 @@ public class AbstractItemTest extends AbstractItem {
         for (i = 0; i < total; i++)
         {
             double price = getPriceHistory().get(i);
-            assertEquals(price, ((double)i * 10));
+            assertEquals(price, ((double) i * 10));
         }
     }
 
     @Test
     public void testHistoryToString()
     {
-       int total = 5;
+        int total = 5;
         int i;
 
         //Populate prices
@@ -166,6 +180,29 @@ public class AbstractItemTest extends AbstractItem {
             setPrice(i * 10);
         }
 
-        assertEquals(toString(), "{\"name\":\"AbstractItemTest\",\"minPrice\":0.0,\"maxPrice\":0.0,\"price\":40.0,\"total\":0,\"description\":\"\",\"history\":[0.0,10.0,20.0,30.0,40.0],\"active\":"+active+"}");
+        assertEquals(toString(), "{\"name\":\"AbstractItemTest\",\"minPrice\":0.0,\"maxPrice\":0.0,\"price\":40.0,\"total\":0,\"description\":\"\",\"history\":[0.0,10.0,20.0,30.0,40.0],\"active\":" + active + "}");
     }
+
+    @Test
+    public void testIsActive()
+    {
+        setActive(true);
+        assertTrue(isActive());
+    }
+
+    @Test
+    public void testPriceHistoryMaxValue()
+    {
+        setMaxHistory(5);
+        addToHistory(1);
+        addToHistory(2);
+        addToHistory(3);
+        addToHistory(4);
+        addToHistory(5);
+        addToHistory(6);
+        addToHistory(7);
+        assertEquals(getMaxHistory(), priceHistory.size());
+        assertEquals(3.0, priceHistory.get(0));
+    }
+
 }

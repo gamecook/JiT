@@ -1,6 +1,7 @@
 package com.gamecook.jit.time;
 
-public class Calendar {
+public class Calendar
+{
 
     private int days;
     private int totalDays;
@@ -8,11 +9,12 @@ public class Calendar {
     /**
      * This is a simple turn managing class. Each
      * turn is represented by a day, calling the
-     * nextDat method advances the turns.
+     * nextDay method advances the turns.
      *
      * @param days
      */
-    public Calendar(int days) {
+    public Calendar(int days)
+    {
         this.days = totalDays = days;
     }
 
@@ -22,7 +24,8 @@ public class Calendar {
      *
      * @return
      */
-    public int getDays() {
+    public int getDays()
+    {
         return days;
     }
 
@@ -32,7 +35,8 @@ public class Calendar {
      *
      * @param value
      */
-    public void setDays(int value) {
+    public void setDays(int value)
+    {
         days = value;
     }
 
@@ -42,7 +46,8 @@ public class Calendar {
      *
      * @return
      */
-    public int getTotalDays() {
+    public int getTotalDays()
+    {
         return totalDays;
     }
 
@@ -52,7 +57,8 @@ public class Calendar {
      * @param value
      * @return
      */
-    public void setTotalDays(int value) {
+    public void setTotalDays(int value)
+    {
         totalDays = value;
     }
 
@@ -61,15 +67,25 @@ public class Calendar {
      *
      * @return
      */
-    public Boolean hasNextDay() {
-        return days >= 1;
+    public Boolean hasNextDay()
+    {
+        return days < 1 ? false : true;
     }
 
     /**
      * Decreases the number of days by 1
      */
-    public void nextDay() {
+    public void nextDay()
+    {
         days -= 1;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "\"calendar\":" +
+                "{\"days\":" + days + "," +
+                "\"totalDays\":" + totalDays + "}";
     }
 
 }

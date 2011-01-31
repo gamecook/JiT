@@ -1,8 +1,9 @@
 package com.gamecook.jit.commerce;
 
-public class Wallet {
+public class Wallet
+{
 
-    private double _cash = 0;
+    private double cash = 0;
 
     /**
      * The wallet is a basic container for currency.
@@ -11,8 +12,9 @@ public class Wallet {
      *
      * @param value
      */
-    public Wallet(double value) {
-        _cash = value;
+    public Wallet(double value)
+    {
+        cash = value;
     }
 
     /**
@@ -20,8 +22,9 @@ public class Wallet {
      *
      * @return
      */
-    public double getCash() {
-        return _cash;
+    public double getCash()
+    {
+        return cash;
     }
 
     /**
@@ -29,8 +32,9 @@ public class Wallet {
      *
      * @param value
      */
-    public void setCash(double value) {
-        _cash = value;
+    public void setCash(double value)
+    {
+        cash = value;
     }
 
     /**
@@ -38,8 +42,9 @@ public class Wallet {
      *
      * @param value
      */
-    public double addCash(double value) {
-        return _cash += value;
+    public double addCash(double value)
+    {
+        return cash += value;
     }
 
     /**
@@ -47,7 +52,15 @@ public class Wallet {
      *
      * @param value
      */
-    public double subtractCash(double value) {
-        return _cash -= value;
+    public double subtractCash(double value)
+    {
+        return cash -= value;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "\"wallet\":{" +
+                "\"cash\":" + cash + "}";
     }
 }

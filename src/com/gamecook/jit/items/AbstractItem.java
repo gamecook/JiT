@@ -10,7 +10,8 @@ import java.util.Random;
  * Time: 5:43:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractItem implements Item {
+public abstract class AbstractItem implements Item
+{
 
     protected double minPrice = 0;
     protected double maxPrice = 0;
@@ -19,37 +20,66 @@ public abstract class AbstractItem implements Item {
     protected String description = "";
     protected int total;
     protected boolean active;
+    protected Random randomGenerator;
+    protected ArrayList<Double> priceHistory;
 
+    public int getMaxHistory()
+    {
+        return maxHistory;
+    }
+
+    public void setMaxHistory(int maxHistory)
+    {
+        this.maxHistory = maxHistory;
+    }
+
+    protected int maxHistory = -1;
+
+    /**
+     * Returns is the item is flagged as active.
+     *
+     * @return
+     */
     public boolean isActive()
     {
         return active;
     }
 
+    /**
+     * Sets the active value of the item.
+     *
+     * @param active
+     */
     public void setActive(boolean active)
     {
         this.active = active;
     }
 
-    protected ArrayList<Double> priceHistory;
 
     /**
      * An Abstract class to represent an Item that can be used
-     * with FiT. Items can randomly generate their price based
+     * with JiT. Items can randomly generate their price based
      * on a min/max or can be explicitly set. Also Items can
      * have a total representing how many of each are in a
      * collection.
      *
      * @param name the name of the Item.
      */
-    public AbstractItem(String name) {
+    public AbstractItem(String name)
+    {
         this.name = name;
         priceHistory = new ArrayList<Double>();
+        randomGenerator = new Random();
+
     }
 
     /**
+     * Returns the min price for the item.
+     *
      * @return
      */
-    public double getMinPrice() {
+    public double getMinPrice()
+    {
         return minPrice;
     }
 
@@ -59,14 +89,16 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setMinPrice(double value) {
+    public void setMinPrice(double value)
+    {
         minPrice = value < 0 ? 0 : value;
     }
 
     /**
      * @return
      */
-    public double getMaxPrice() {
+    public double getMaxPrice()
+    {
         return maxPrice;
     }
 
@@ -76,14 +108,16 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setMaxPrice(double value) {
+    public void setMaxPrice(double value)
+    {
         maxPrice = value <= minPrice ? minPrice : value;
     }
 
     /**
      * @return
      */
-    public double getPrice() {
+    public double getPrice()
+    {
         return price;
     }
 
@@ -92,10 +126,21 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setPrice(double value) {
+    public void setPrice(double value)
+    {
         price = value < 0 ? 0 : value;
         //TODO need to addCash in logic to limit the max number of price history.
-        priceHistory.add(price);
+        addToHistory(price);
+    }
+
+    protected void addToHistory(double value)
+    {
+        priceHistory.add(value);
+
+        if (maxHistory > 0 && priceHistory.size() > maxHistory)
+        {
+            priceHistory.remove(0);
+        }
     }
 
     /**
@@ -104,7 +149,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
@@ -113,7 +159,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
@@ -122,7 +169,8 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setDescription(String value) {
+    public void setDescription(String value)
+    {
         description = value;
     }
 
@@ -132,10 +180,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public double generateNewPrice() {
-
-        Random randomGenerator = new Random();
-
+    public double generateNewPrice()
+    {
         setPrice(Math.round(minPrice + randomGenerator.nextDouble() * maxPrice));
         return price;
     }
@@ -145,7 +191,8 @@ public abstract class AbstractItem implements Item {
      *
      * @return
      */
-    public int getTotal() {
+    public int getTotal()
+    {
         return total;
     }
 
@@ -155,7 +202,8 @@ public abstract class AbstractItem implements Item {
      *
      * @param value
      */
-    public void setTotal(int value) {
+    public void setTotal(int value)
+    {
         if (value == total)
             return;
 
@@ -165,22 +213,24 @@ public abstract class AbstractItem implements Item {
     /**
      * An abstract clone method for AbstractItem.
      *
-     * @param name
      * @return
      */
-    abstract public Item clone(String name);
+    abstract public Item clone();
 
-    public ArrayList<Double> getPriceHistory() {
+    public ArrayList<Double> getPriceHistory()
+    {
         return priceHistory;
     }
 
-    public String priceHistoryToString(String delimiter) {
+    public String priceHistoryToString(String delimiter)
+    {
         if (delimiter == null)
             delimiter = ",";
         StringBuilder sb = new StringBuilder();
         int total = priceHistory.size();
         int i;
-        for (i = 0; i < total; i++) {
+        for (i = 0; i < total; i++)
+        {
             sb.append(Double.toString(priceHistory.get(i)));
             if (i + 1 < total)
                 sb.append(delimiter);
@@ -189,31 +239,38 @@ public abstract class AbstractItem implements Item {
         return sb.toString();
     }
 
-    public void parsePriceHistoryString(String history) {
+    public void parsePriceHistoryString(String history)
+    {
         String[] prices = history.split(",");
         int total = prices.length;
         int i;
         double d;
-        for (i = 0; i < total; i++) {
-            try {
+        for (i = 0; i < total; i++)
+        {
+            try
+            {
                 d = Double.valueOf(prices[i].trim()).doubleValue();
                 setPrice(d);
-            } catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe)
+            {
                 System.out.println("NumberFormatException: " + nfe.getMessage());
             }
         }
     }
 
     @Override
-    public String toString() {
-        return "{\"name\":\""+getName()+"\"," +
-                "\"minPrice\":" + minPrice+","+
-                "\"maxPrice\":" + maxPrice+","+
-                "\"price\":" + price+","+
-                "\"total\":" + total+","+
-                "\"description\":\"" + description+"\","+
-                "\"history\":["+priceHistoryToString(",")+"],"+
-                "\"active\":"+ active +""+
+    public String toString()
+    {
+        return "{\"name\":\"" + getName() + "\"," +
+                "\"minPrice\":" + minPrice + "," +
+                "\"maxPrice\":" + maxPrice + "," +
+                "\"price\":" + price + "," +
+                "\"total\":" + total + "," +
+                "\"description\":\"" + description + "\"," +
+                "\"history\":[" + priceHistoryToString(",") + "]," +
+                "\"active\":" + active + "" +
                 "}";
     }
+
+
 }

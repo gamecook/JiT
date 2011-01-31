@@ -5,6 +5,8 @@ import com.gamecook.jit.items.MockItem;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static junit.framework.Assert.*;
 
 /**
@@ -14,11 +16,13 @@ import static junit.framework.Assert.*;
  * Time: 3:44:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class StoreTest {
+public class StoreTest
+{
     private Store store;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         store = new Store(-1);
 
         // Item A
@@ -38,10 +42,14 @@ public class StoreTest {
         itemC.setMinPrice(20);
         itemC.setMaxPrice(30);
         store.add(itemC, 4);
+
+        store.setMaxCurrentInventory(3);
+        store.generateRandomInventoryList();
     }
 
     @Test
-    public void testRefresh() throws Exception {
+    public void testRefresh() throws Exception
+    {
 
         store.refresh();
 
@@ -50,7 +58,8 @@ public class StoreTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() throws Exception
+    {
 
 
         for (int i = 0; i < 3; i++)
@@ -60,7 +69,7 @@ public class StoreTest {
             store.get("Item C").setPrice(i);
         }
 
-        assertEquals(store.toString(), "{\"store\":{\"maxTotal\":-1,\"currentTotal\":15,\"items\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false}]}}");
+        assertEquals(store.toString(), "\"store\":{\"maxTotal\":-1,\"currentTotal\":15,\"items\":[{\"name\":\"Item A\",\"minPrice\":1.0,\"maxPrice\":10.0,\"price\":2.0,\"total\":1,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item B\",\"minPrice\":10.0,\"maxPrice\":20.0,\"price\":2.0,\"total\":10,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false},{\"name\":\"Item C\",\"minPrice\":20.0,\"maxPrice\":30.0,\"price\":2.0,\"total\":4,\"description\":\"\",\"history\":[0.0,1.0,2.0],\"active\":false}]}");
     }
 
     @Test
@@ -70,6 +79,14 @@ public class StoreTest {
         store.add(tmpItem, 10);
         store.removeFromInventory(tmpItem, 10);
         assertNotNull(store.get("FooBar"));
+    }
+
+    @Test
+    public void testRemove()
+    {
+        store.remove("Item A");
+        assertNull(store.get("Item A"));
+        assertEquals("Item B", store.getActiveInventory().get(0).getName());
     }
 
     @Test
@@ -152,5 +169,31 @@ public class StoreTest {
         store.selectItemByID(1);
         store.sellCurrentItem(5);
         assertEquals(5, store.getCurrentItem().getTotal());
+    }
+
+    @Test
+    public void testActiveInventory()
+    {
+        assertEquals("Item A", store.getActiveInventory().get(0).getName());
+        assertEquals("Item B", store.getActiveInventory().get(1).getName());
+        assertEquals("Item C", store.getActiveInventory().get(2).getName());
+    }
+
+    @Test
+    public void testMaxCurrentInventory()
+    {
+        store.setMaxCurrentInventory(1);
+        assertEquals(1, store.getMaxCurrentInventory());
+    }
+
+    @Test
+    public void testGenerateRandomInventory()
+    {
+        Store tmpStore = new Store(2);
+        tmpStore.add(new MockItem("Item A"), 1);
+        tmpStore.add(new MockItem("Item B"), 1);
+        tmpStore.setMaxCurrentInventory(1);
+        tmpStore.generateRandomInventoryList();
+        assertEquals(1, tmpStore.getActiveInventory().size());
     }
 }

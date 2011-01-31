@@ -9,7 +9,8 @@ import static junit.framework.Assert.assertEquals;
  * Date: 12/12/10
  * Time: 2:30 PM
  */
-public class MoneyToStringUtilTest {
+public class MoneyToStringUtilTest
+{
 
     @Test
     public void testConvertDoubleToStringWithoutRemainder()

@@ -1,11 +1,17 @@
 package com.gamecook.jit.commerce;
 
-public class Bank extends Wallet{
+public class Bank extends Wallet
+{
 
-    protected double _savings = 0;
-    protected double _interest;
-    protected double _loan = 0;
-    private Boolean _round = true;
+    public static final int DEPOSIT = 0;
+    public static final int WITHDRAW = 1;
+    public static final int REPAY_LOAN = 2;
+    public static final int GET_LOAN = 3;
+
+    protected double savings = 0;
+    protected double interest;
+    protected double loan = 0;
+    private Boolean round = true;
 
     /**
      * The bank manges a single loan and savings value.
@@ -14,9 +20,10 @@ public class Bank extends Wallet{
      *
      * @param interest
      */
-    public Bank(double cash, double interest) {
+    public Bank(double cash, double interest)
+    {
         super(cash);
-        _interest = interest;
+        this.interest = interest;
     }
 
     /**
@@ -24,8 +31,9 @@ public class Bank extends Wallet{
      *
      * @return
      */
-    public double getSavings() {
-        return _savings;
+    public double getSavings()
+    {
+        return savings;
     }
 
     /**
@@ -33,8 +41,9 @@ public class Bank extends Wallet{
      *
      * @return
      */
-    public double getLoan() {
-        return _loan;
+    public double getLoan()
+    {
+        return loan;
     }
 
     /**
@@ -42,8 +51,9 @@ public class Bank extends Wallet{
      *
      * @return
      */
-    public double getInterest() {
-        return _interest;
+    public double getInterest()
+    {
+        return interest;
     }
 
 
@@ -53,10 +63,12 @@ public class Bank extends Wallet{
      * @param currentDay
      * @param totalDays
      */
-    public void nextDay(double currentDay, double totalDays) {
-        if (_loan != 0) {
-            double interest = calculateInterest(_interest, totalDays, _loan, currentDay);
-            _loan += interest;
+    public void nextDay(double currentDay, double totalDays)
+    {
+        if (loan != 0)
+        {
+            double interest = calculateInterest(this.interest, totalDays, loan, currentDay);
+            loan += interest;
         }
     }
 
@@ -66,14 +78,16 @@ public class Bank extends Wallet{
      * @param value
      * @return
      */
-    public double payOffLoan(double value) {
-        _loan -= value;
+    public double payOffLoan(double value)
+    {
+        loan -= value;
 
         double remainder = 0;
 
-        if (_loan < 0) {
-            remainder = _loan * -1;
-            _loan = 0;
+        if (loan < 0)
+        {
+            remainder = loan * -1;
+            loan = 0;
         }
 
         return remainder;
@@ -86,65 +100,91 @@ public class Bank extends Wallet{
      * @param value
      * @return
      */
-    public double withdrawFromSavings(double value) {
-        if (value > _savings) {
-            value = _savings;
-            _savings = 0;
-        } else {
-            _savings -= value;
+    public double withdrawFromSavings(double value)
+    {
+        if (value > savings)
+        {
+            value = savings;
+            savings = 0;
+        } else
+        {
+            savings -= value;
         }
 
         return value;
     }
 
     /**
-     * Adds to the loan.
+     * Increases the loan amount and your cash.
      *
      * @param value
      */
-    public void takeOutLoan(double value) {
-        _loan += value;
+    public void takeOutLoan(double value)
+    {
+        loan += value;
+        addCash(value);
     }
 
-    /**
-     * Adds money to your savings account.
-     *
-     * @param value
-     */
-    public void depositIntoSavings(double value) {
-        _savings += value;
-    }
-
-
-    protected double calculateInterest(double interest, double totalTime, double balance, double timeElapsed) {
+    protected double calculateInterest(double interest, double totalTime, double balance, double timeElapsed)
+    {
         double value = ((interest / totalTime) * balance) * timeElapsed;
 
-        return _round ? Math.round(value) : value;
+        return round ? Math.round(value) : value;
+    }
+
+    public void setInterest(double value)
+    {
+        interest = value;
+    }
+
+    public void setSavings(double value)
+    {
+        savings = value;
+    }
+
+    public void setLoan(double value)
+    {
+        loan = value;
     }
 
     /**
-     * Allows you to trigger if the bank will round all interest transactions.
+     * Adds money to your savings account from your cash
      *
      * @param value
      */
-    public void setRoundInterestCalculation(Boolean value) {
-        _round = value;
+    public void deposit(double value)
+    {
+        //TODO need logic to make sure you can't deposit more then you have in cash
+        subtractCash(value);
+        savings += value;
     }
 
-    //TODO need to look into these methods if they are being used.
-    public double get_interest() {
-        return _interest;
+    public void withdraw(double value)
+    {
+        addCash(withdrawFromSavings(value));
     }
 
-    public void setInterest(double value) {
-        _interest = value;
+    public void replayLoan(double value)
+    {
+        //TODO need logic to make sure you can't replay more then you have or owe
+        subtractCash(value);
+        payOffLoan(value);
     }
 
-    public void setSavings(double value) {
-        _savings = value;
+    @Override
+    public String toString()
+    {
+        String partial = "bank\":{" +
+                "\"savings\":" + savings + "," +
+                "\"interest\":" + interest + "," +
+                "\"loan\":" + loan + "," +
+                "\"round\":" + round + ",";
+
+        return super.toString().replace("wallet\":{", partial);
     }
 
-    public void setLoan(double value) {
-        _loan = value;
+    public void setRound(boolean value)
+    {
+        this.round = value;
     }
 }

@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 
-public class Inventory {
+public class Inventory
+{
 
     protected HashMap<String, Item> inventory;
     protected ArrayList<String> itemNames;
@@ -22,7 +23,8 @@ public class Inventory {
      * are not used. In their place is addToInventory and
      * removeFromInventory.
      */
-    public Inventory(int maxTotal) {
+    public Inventory(int maxTotal)
+    {
         this.maxTotal = maxTotal;
         inventory = new HashMap<String, Item>();
         itemNames = new ArrayList<String>();
@@ -30,7 +32,8 @@ public class Inventory {
         clear();
     }
 
-    public int getMaxTotal() {
+    public int getMaxTotal()
+    {
         return maxTotal;
     }
 
@@ -41,10 +44,11 @@ public class Inventory {
      *
      * @param value
      */
-    public void setMaxTotal(int value) {
-        if(maxTotal == value)
+    public void setMaxTotal(int value)
+    {
+        if (maxTotal == value)
             return;
-        else if(value < currentTotal && value > -1)
+        else if (value < currentTotal && value > -1)
             throw new Error("New MaxTotal is lower then current total");
 
         this.maxTotal = value;
@@ -56,35 +60,36 @@ public class Inventory {
      *
      * @return
      */
-    public int getCurrentTotal() {
+    public int getCurrentTotal()
+    {
         return currentTotal;
     }
 
     /**
-     *
      * @param value
      */
+    //TODO need to add tests for this
     protected void subtractFromTotal(int value)
     {
-        if(maxTotal == -1)
+        if (maxTotal == -1)
             return;
 
         currentTotal -= value;
-        if(currentTotal < 0)
+        if (currentTotal < 0)
             currentTotal = 0;//TODO this should throw an error -> throw new Error("Current total cannon go below 0.");
     }
 
     /**
-     *
      * @param value
      */
+    //TODO need to add tests for this
     protected void addToTotal(int value)
     {
-        if(maxTotal == -1)
+        if (maxTotal == -1)
             return;
 
         currentTotal += value;
-        if(getCurrentTotal() > maxTotal)
+        if (getCurrentTotal() > maxTotal)
             throw new Error("Current total cann't go above the Max Total.");
     }
 
@@ -95,11 +100,13 @@ public class Inventory {
      * @param item
      * @return
      */
-    public void add(Item item, int amount) {
+    public void add(Item item, int amount)
+    {
 
         addToTotal(amount);
 
-        if (inventory.containsKey(item.getName())) {
+        if (inventory.containsKey(item.getName()))
+        {
             addToItemTotal(item.getName(), amount);
             return;
         }
@@ -114,16 +121,18 @@ public class Inventory {
      * @param name
      * @return
      */
-    public Boolean remove(String name) {
-        if (inventory.containsKey(name)) {
+    public Boolean remove(String name)
+    {
+        if (inventory.containsKey(name))
+        {
 
             // Remove item's total from inventory total before removing item
-            subtractFromTotal(inventory.get(name).getTotal());
-
+            subtractFromTotal(((Item) inventory.get(name)).getTotal());
             inventory.remove(name);
             itemNames.remove(name);
             return true;
-        } else {
+        } else
+        {
             return false;
 
         }
@@ -138,13 +147,17 @@ public class Inventory {
      * @param amount
      * @return
      */
-    public int removeFromInventory(Item id, int amount) {
-        if (!hasItem(id.getName())) {
+    public int removeFromInventory(Item id, int amount)
+    {
+        if (!hasItem(id.getName()))
+        {
             return 0;
-        } else {
+        } else
+        {
             int remainder = getItemTotal(id.getName()) - amount;
             inventory.get(id.getName()).setTotal(remainder);
-            if (remainder <= 0) {
+            if (remainder <= 0)
+            {
                 remove(id.getName());
             }
             subtractFromTotal(amount);
@@ -154,19 +167,23 @@ public class Inventory {
 
     }
 
-    public int getTotalItems() {
+    public int getTotalItems()
+    {
         return inventory.size();
     }
 
-    public int getItemTotal(String name) {
+    public int getItemTotal(String name)
+    {
         return inventory.get(name).getTotal();
     }
 
-    public Item get(String name) {
+    public Item get(String name)
+    {
         return inventory.get(name);
     }
 
-    public int addToItemTotal(String name, int value) {
+    public int addToItemTotal(String name, int value)
+    {
         Item tmpItem = inventory.get(name);
 
         tmpItem.setTotal(tmpItem.getTotal() + value);
@@ -175,22 +192,27 @@ public class Inventory {
         return tmpItem.getTotal();
     }
 
-    public Boolean hasItem(String name) {
+    public Boolean hasItem(String name)
+    {
         return inventory.containsKey(name);
     }
 
-    public String[] getInventoryAsArray() {
+    //TODO this needs to be tested
+    public String[] getInventoryAsArray()
+    {
         //TODO this needs to have some sort of invalidation
         return convert(inventory);
     }
 
-    protected String[] convert(HashMap<String, Item> things) {
+    protected String[] convert(HashMap<String, Item> things)
+    {
         String[] tArray = things.keySet().toArray(new String[things.size()]);
         Arrays.sort(tArray);
         return tArray;
     }
 
-    public int getTotalLeft() {
+    public int getTotalLeft()
+    {
         return maxTotal - currentTotal;
     }
 
@@ -200,28 +222,31 @@ public class Inventory {
         itemNames.clear();
     }
 
-    public Item getItemByID(int i) {
+    public Item getItemByID(int i)
+    {
         return get(getInventoryAsArray()[i]);
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
 
-        String output = "{\"inventory\":{\"maxTotal\":"+getMaxTotal()+",\"currentTotal\":"+getCurrentTotal()+",\"items\":[";
+        String output = "\"inventory\":{\"maxTotal\":" + getMaxTotal() + ",\"currentTotal\":" + getCurrentTotal() + ",\"items\":[";
 
         int i;
         int total = getTotalItems();
 
-        for (i = 0; i < total; i ++)
+        for (i = 0; i < total; i++)
         {
-            output += getItemByID(i).toString()+",";
+            output += getItemByID(i).toString() + ",";
         }
 
-        return output.substring(0, output.length()-1)+"]}}";
+        return output.substring(0, output.length() - 1) + "]}";
     }
 
     public ArrayList<String> getItemNames()
     {
         return itemNames;
     }
+
 }
